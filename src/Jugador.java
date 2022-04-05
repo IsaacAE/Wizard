@@ -4,8 +4,6 @@
  */
 package wizard.src;
 import wizard.src.Estructuras.*;
-public class Mazo{
-
-
-
+public class Jugador {
+    
 }

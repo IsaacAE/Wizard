@@ -3,6 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
+import wizard.src.Estructuras.*;
 
 public class Carta{
     public static final String amarillo = "\u001B[33m";
