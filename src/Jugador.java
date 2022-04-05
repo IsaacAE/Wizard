@@ -4,7 +4,6 @@
  */
 package wizard.src;
 import wizard.src.Estructuras.*;
-
-public class Baraja{
-
+public class Jugador {
+    
 }

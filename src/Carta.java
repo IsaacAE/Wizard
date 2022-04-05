@@ -6,7 +6,7 @@
 package wizard.src;
 
 public class Carta{
-    public static final String amarillo = "\u001B[32m";
+    public static final String amarillo = "";
     public static final String rojo = "\u001B[31m";
     public static final String verde = "\u001B[32m";
     public static final String azul = "\u001B[34m";

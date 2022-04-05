@@ -3,6 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
+import wizard.src.Estructuras.*;
 public class Main{
 
     public static void main(String[] args){
@@ -19,6 +20,11 @@ public class Main{
     System.out.println(yellow.toString());
     System.out.println(magic.toString());
     System.out.println(joker.toString());
+    Lista <Integer> lista = new Lista<>();
+    for(int i = 1; i<10; i++){
+        lista.add(i);
+    }
+    System.out.println(lista);
    // System.out.println(red.toString());
     }
 
