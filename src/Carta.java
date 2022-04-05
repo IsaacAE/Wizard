@@ -1,3 +1,9 @@
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
+package wizard.src;
+
 public class Carta{
     public static final String amarillo = "\u001B[33m";
     public static final String rojo = "\u001B[31m";

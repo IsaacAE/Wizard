@@ -1,4 +1,9 @@
-public class Pruebas{
+/**
+ * @author Mauricio Rubio Haro
+ * @author Kevin Isaac Alcantara Estrada
+ */
+package wizard.src;
+public class Main{
 
     public static void main(String[] args){
 
