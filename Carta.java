@@ -24,6 +24,26 @@ public class Carta{
         //this.especial = true;
     }*/
 
+    public String getValor(){
+        return this.valor;
+
+    }
+
+    public void setValor(String valor){
+        this.valor = valor;
+
+    }
+
+    public void setPalo(String palo){
+        this.palo = palo;
+
+    }
+
+    public String getPalo(){
+        return this.palo;
+
+    }
+
     public String toString(){
         String card="";
         switch(palo){
