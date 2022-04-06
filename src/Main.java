@@ -14,17 +14,23 @@ public class Main{
     Carta green = new Carta("verde", "9");
     Carta magic = new Carta("morado", "W");
     Carta joker = new Carta("blanco", "J");
-    System.out.println(red.toString());
+    /*System.out.println(red.toString());
     System.out.println(blue.toString());
     System.out.println(green.toString());
     System.out.println(yellow.toString());
     System.out.println(magic.toString());
-    System.out.println(joker.toString());
-    Lista <Integer> lista = new Lista<>();
-    for(int i = 1; i<10; i++){
-        lista.add(i);
-    }
-    System.out.println(lista);
+    System.out.println(joker.toString());*/
+    Jugador jg = new Jugador("Mauricio");
+    Lista<Carta> lista = new Lista<>();
+    lista.add(red);
+    lista.add(yellow);
+    lista.add(blue);
+    lista.add(green);
+    lista.add(magic);
+    lista.add(joker);
+    System.out.println("Esta es la lista"+lista);
+    jg.mano = lista;
+    System.out.println("Mostrando mano \n"+jg.mostrarMano());
    // System.out.println(red.toString());
     }
 
