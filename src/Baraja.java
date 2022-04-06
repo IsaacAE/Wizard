@@ -47,6 +47,52 @@ public class Baraja{
         this.palo = "nulo";
     }
 
+    public Baraja(){
+        this.palo="neutro";
+        int j=0;
+        String num = "";
+           this.mazoCartas = new Carta[60];
+            for(int i=0;i<13; i++){
+                int number = i+1;
+                num = number+"";
+                this.mazoCartas[j]= new Carta("verde", num);
+                j++;
+            }
+
+             for(int i=0;i<4; i++){
+                this.mazoCartas[j]= new Carta("blanco", "J");
+                j++;
+             }
+
+             for(int i=0;i<4; i++){
+                this.mazoCartas[j]= new Carta("morado", "W");
+                j++;
+             }
+
+             for(int i=0;i<13; i++){
+                int number = i+1;
+                num = number+"";
+                this.mazoCartas[j]= new Carta("azul", num);
+                j++;
+             }
+
+             for(int i=0;i<13; i++){
+                int number = i+1;
+                num = number+"";
+                this.mazoCartas[j]= new Carta("amarillo", num);
+                j++;
+             }
+
+             for(int i=0;i<13; i++){
+                int number = i+1;
+                num = number+"";
+                this.mazoCartas[j]= new Carta("rojo", num);
+                j++;
+             }
+
+            
+    }
+
     public String toString(){
         String mazo="";
         for(int j=0; j<this.mazoCartas.length; j++){
