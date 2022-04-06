@@ -4,9 +4,9 @@
  */
 package wizard.src;
 
-import wizard.src.Estructuras.*;
 //import Estructuras.*;
 import java.util.Iterator;
+import wizard.src.Estructuras.*;
 
 public class Jugador {
 
@@ -19,12 +19,16 @@ public class Jugador {
     this.nombre = nombre;
   }
 
-  public String mostrarMano(){
-      String string = "";
-      Iterator <Carta> iteradorLista = mano.iterator();
-      while(iteradorLista.hasNext()){
-        string += " " + iteradorLista.next().toString() + " ";
-      }
-      return string;
+  public String mostrarMano() {
+    String string = "";
+    Iterator<Carta> iteradorLista = mano.iterator();
+    while (iteradorLista.hasNext()) {
+      string += " " + iteradorLista.next().toString() + " ";
+    }
+    return string;
+  }
+
+  public Baraja barajear(Baraja baraja) {
+    //return baraja.revolver();
   }
 }
