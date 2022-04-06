@@ -21,10 +21,25 @@ public class Main{
     System.out.println(magic.toString());
     System.out.println(joker.toString());
     Lista <Integer> lista = new Lista<>();
-    for(int i = 1; i<10; i++){
+    Baraja a = new Baraja("rojo");
+    Baraja b = new Baraja("blanco");
+    Baraja c = new Baraja("morado");
+    Baraja d = new Baraja("azul");
+    
+
+
+  /*  for(int i = 1; i<10; i++){
         lista.add(i);
-    }
-    System.out.println(lista);
+    }*/
+    System.out.println(a.toString());
+    System.out.println(b.toString());
+    System.out.println(c.toString());
+    System.out.println(d.toString());
+    a.cambiarCarta(0, 11);
+    d.barajear();
+    System.out.println(a.toString());
+    System.out.println(d.toString());
+    //System.out.println(lista);
    // System.out.println(red.toString());
     }
 
