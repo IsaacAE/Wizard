@@ -27,10 +27,10 @@ public class Baraja{
                 this.mazoCartas[i]= new Carta(palo, "W");
              }
             }else{
-                mazoCartas = new Carta[12];
+                mazoCartas = new Carta[13];
                 String num= "";
                 
-            for(int i=0;i<12; i++){
+            for(int i=0;i<13; i++){
                 int number = i+1;
 
                 num = number+"";
@@ -40,6 +40,11 @@ public class Baraja{
 
         //this.Carta[];
 
+    }
+
+    public Baraja(Carta[] mazoCartas){
+        this.mazoCartas=mazoCartas;
+        this.palo = "nulo";
     }
 
     public String toString(){
@@ -83,6 +88,24 @@ public class Baraja{
 	}
 
 	return aux; 
+    }
+
+    public String getPalo(){
+
+    return this.palo;
+    }
+
+    public Carta[] getMazoCartas(){
+
+        return this.mazoCartas;
+    }
+
+    public void setMazoCartas(Carta[] mazoCartas){
+        this.mazoCartas = mazoCartas;
+    }
+
+    public void setPalo(String palo){
+        this.palo = palo;
     }
 }
 

@@ -6,6 +6,53 @@ package wizard.src;
 import wizard.src.Estructuras.*;
 public class Main{
 
+    public static Baraja crearMazo(Carta[] mazo1, Carta[] mazo2, Carta[] mazo3, Carta[] mazo4, Carta[] mazo5, Carta[] mazo6){
+        Carta[] cartasP = new Carta[60];
+        Carta joker = new Carta("blanco", "J");
+        int i =0;
+        int j=0;
+        
+        for(i=0;i<mazo1.length;i++){
+            cartasP[j] = mazo1[i];
+            j++;
+
+        }
+
+        for(i=0;i<mazo2.length;i++){
+            cartasP[j] = mazo2[i];
+            j++;
+
+        }
+
+        for(i=0;i<mazo3.length;i++){
+            cartasP[j] = mazo3[i];
+            j++;
+
+        }
+
+        for(i=0;i<mazo4.length;i++){
+            cartasP[j] = mazo4[i];
+            j++;
+
+        }
+
+        for(i=0;i<mazo5.length;i++){
+            cartasP[j] = mazo5[i];
+            j++;
+        }
+
+        for(i=0;i<mazo6.length;i++){
+            cartasP[j] = mazo6[i];
+            j++;
+
+        }
+
+
+       Baraja mazoP = new Baraja(cartasP);
+        mazoP.revolver();
+        return mazoP;
+
+     }
     public static void main(String[] args){
 
 	Carta red = new Carta("rojo", "3");
@@ -26,6 +73,8 @@ public class Main{
     Baraja b = new Baraja("blanco");
     Baraja c = new Baraja("morado");
     Baraja d = new Baraja("azul");
+    Baraja e = new Baraja("verde");
+    Baraja f = new Baraja("amarillo");
     
 
 
@@ -33,11 +82,14 @@ public class Main{
         lista.add(i);
     }*/
     System.out.println(a.toString());
+    System.out.println(e.toString());
+    System.out.println(f.toString());
+    System.out.println(d.toString());
     System.out.println(b.toString());
     System.out.println(c.toString());
-    System.out.println(d.toString());
-    a.cambiarCarta(0, 11);
-    d.revolver();
+    
+  //  a.cambiarCarta(0, 11);
+  //  d.revolver();
     System.out.println(a.toString());
     System.out.println(d.toString());
     //System.out.println(lista);
@@ -53,7 +105,62 @@ public class Main{
     System.out.println("Esta es la lista"+lista);
     jg.mano = lista;
     System.out.println("Mostrando mano \n"+jg.mostrarMano());
+    Baraja mazoP= crearMazo(a.getMazoCartas(), b.getMazoCartas(), c.getMazoCartas(), d.getMazoCartas(), e.getMazoCartas(), f.getMazoCartas());
+  System.out.println(mazoP.toString());
+  Carta aux = new Carta("neutro", "2");
+  Carta[] ojo = mazoP.getMazoCartas();
+    for(int k = 0; k<ojo.length; k++){
+       aux = mazoP.sacarCarta();
+        System.out.println(aux.toString());
+    }
+ // Carta[] aux = mazoP.getMazoCartas();
+ //BORRABLE
+ /*int j = 0;
+ Carta[] hope = a.getMazoCartas();
+  for( int i = 0; i<hope.length;i++){
+        aux[j]= a.getMazoCartas()[i];
+        j++;
+  }
+System.out.println(j);
+  Carta[] pope= b.getMazoCartas();
+  for( int i = 0; i<pope.length;i++){
+        aux[j]= b.getMazoCartas()[i];
+        j++;
+  }
+  System.out.println(j);
+  Carta[] rope = c.getMazoCartas();
+  for( int i = 0; i<rope.length;i++){
+        aux[j]= c.getMazoCartas()[i];
+        j++;
+  }
+  System.out.println(j);
 
+  Carta[] lope = d.getMazoCartas();
+  for( int i = 0; i<lope.length;i++){
+        aux[j]= d.getMazoCartas()[i];
+        j++;
+  }
+  System.out.println(j);
+  Carta[] tope = e.getMazoCartas();
+  for( int i = 0; i<tope.length;i++){
+        aux[j]= e.getMazoCartas()[i];
+        j++;
+  }
+  System.out.println(j);
+  Carta[] yope = f.getMazoCartas();
+  for( int i = 0; i<yope.length;i++){
+        aux[j]= f.getMazoCartas()[i];
+        j++;
+  }
+  System.out.println(j);
+
+  System.out.println(j);
+  for( int i = 0; i<aux.length;i++){
+    System.out.print(aux[i].toString());
+  }
+
+*/
+//FIN BORRABLE
    // System.out.println(red.toString());
     }
 

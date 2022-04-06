@@ -18,6 +18,8 @@ public class Tablero{
         return reparticion;
      }
 
+     
+
      public void ganador(){
 
      }
