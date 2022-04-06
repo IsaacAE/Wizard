@@ -12,8 +12,9 @@ public class Jugador {
 
   Lista<Carta> mano = new Lista();
   String nombre;
-  Lista<Cola<Carta>> jugadas = new Lista();
+  //Lista<Cola<Carta>> jugadas = new Lista();
   Lista<Integer> prediccion = new Lista();
+
 
   public Jugador(String nombre) {
     this.nombre = nombre;
@@ -29,6 +30,9 @@ public class Jugador {
   }
 
   public Baraja barajear(Baraja baraja) {
-    //return baraja.revolver();
-  }
+    baraja.revolver();
+    return baraja;
+  } 
+
 }
+
