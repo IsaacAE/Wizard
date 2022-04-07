@@ -569,4 +569,16 @@ public class Lista<T> implements Collection<T> {
   public IteradorLista<T> iteradorLista() {
     return new Iterador();
   }
+
+  //
+  public T eliminarIndice(int indice){
+    int numAux=1;
+    Nodo aux = this.cabeza;
+    while(numAux<indice){
+      aux= aux.siguiente;
+      numAux++;
+    }
+    delete(aux.elemento);
+    return aux.elemento;
+  }
 }
