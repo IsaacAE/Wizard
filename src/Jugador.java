@@ -16,6 +16,10 @@ public class Jugador {
 
   //Lista<Cola<Carta>> jugadas = new Lista();
 
+  /**
+   * Constructor
+   * @param nombre
+   */
   public Jugador(String nombre) {
     this.nombre = nombre;
   }

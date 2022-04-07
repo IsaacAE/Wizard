@@ -68,7 +68,7 @@ return totalJugadores;
 }
     
     public static void main(String[] args){    
-      Tablero tablero = new Tablero();
+      /*Tablero tablero = new Tablero();
       Juego juego = new Juego();
       juego.agregarJugadores(new Jugador("Mauricio"));
       juego.agregarJugadores(new Jugador("Ruben"));
@@ -77,7 +77,9 @@ return totalJugadores;
       System.out.println("Baraja lenght -->"+tablero.barajita);
       juego.setJugadores(tablero.repartir(10, juego.getJugadores()));
       juego.mostrarJugadores();
-      System.out.println("Baraja lenght -->"+tablero.barajita);
+      System.out.println("Baraja lenght -->"+tablero.barajita);*/
+      Sistema sistema = new Sistema();
+      sistema.iniciar();
 
       
 

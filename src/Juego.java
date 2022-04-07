@@ -22,6 +22,10 @@ public class Juego {
     }
   }*/
 
+  /**
+   * Muestra a los jugadores contenidos en la lista e imprime
+   * su mano
+   */
   public void mostrarJugadores() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -33,10 +37,19 @@ public class Juego {
     }
   }
 
+  /**
+   * Agregar jugadores a la lista
+   * @param jugador
+   */
   public void agregarJugadores(Jugador jugador) {
     jugadores.add(jugador);
   }
 
+  /**
+   * Busca a un jugador
+   * @param nombre
+   * @return
+   */
   public Jugador buscarJugador(String nombre) {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
