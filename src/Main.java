@@ -4,8 +4,65 @@
  */
 package wizard.src;
 import wizard.src.Estructuras.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 public class Main{
 
+
+ /* public static boolean validarMov(Carta carta){
+
+  }*/
+
+ /* public static Carta jugarCarta(Lista<Carta> mano){
+
+  }*/
+
+  public static Jugador solicitarDatos(){
+    Scanner escaner = new Scanner(System.in);
+    boolean valido = false;
+    String nombre = "";
+    do{
+      valido=true;
+      System.out.println("Escribe tu nombre");
+       try{
+      
+      nombre=escaner.nextLine();
+          }catch(InputMismatchException et){
+      
+           valido=false;
+           escaner.next();
+       }
+
+  }while(valido==false);
+   Jugador jugadorNuevo = new Jugador(nombre);
+  return jugadorNuevo;
+}
+
+public static Lista<Jugador> crearJugadores(){
+  Scanner escaner = new Scanner(System.in);
+    boolean valido = false;
+    int jugadores = 0;
+  do{
+    valido=true;
+    System.out.println("Escribe el numero de jugadores");
+     try{
+    
+    jugadores=escaner.nextInt();
+    if(jugadores<3 || jugadores> 6) valido=false;
+        }catch(InputMismatchException et){
+    
+         valido=false;
+         escaner.next();
+     }
+
+}while(valido==false);
+
+Lista<Jugador> totalJugadores = new Lista<>();
+for(int i =0; i<jugadores; i++){
+  totalJugadores.add(solicitarDatos());
+}
+return totalJugadores;
+}
     
     public static void main(String[] args){
 
@@ -59,11 +116,26 @@ public class Main{
     System.out.println("Esta es la lista"+lista);
     jg.mano = lista;
     System.out.println("Mostrando mano \n"+jg.mostrarMano());
+    for(int k =1; k<lista.longi; k++){
+      System.out.print("   "+k);
+    }
+   Carta oops = jg.jugarCarta(jg.getMano(), 2);
     Baraja mazoP= new Baraja();
+    System.out.println("Mostrando mano \n"+jg.mostrarMano());
+    System.out.println(oops.toString());
     
   System.out.println(mazoP.toString());
   mazoP.revolver();
   System.out.println(mazoP.toString());
+
+  Lista<Jugador> jugadores = crearJugadores();
+  
+  System.out.println(jugadores.toString());
+  /*for(int i=0; i<jugadores.length; i++){
+    System.out.println(jugadores[i].toString());
+  }*/
+  //System.out.println(jugador1.toString());
+
   /*Carta aux = new Carta("neutro", "2");
   Carta[] ojo = mazoP.getMazoCartas();
     for(int k = 0; k<ojo.length; k++){
