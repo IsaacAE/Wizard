@@ -3,6 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
+import wizard.src.Baraja;
 import wizard.src.Estructuras.*;
 public class Main{
 
@@ -28,9 +29,12 @@ public class Main{
     lista.add(green);
     lista.add(magic);
     lista.add(joker);
-    System.out.println("Esta es la lista"+lista);
+    //System.out.println("Esta es la lista"+lista);
     jg.mano = lista;
-    System.out.println("Mostrando mano \n"+jg.mostrarMano());
+    //System.out.println("Mostrando mano \n"+jg.mostrarMano());
+    Baraja barajita = new Baraja();
+    System.out.println("Esta es la baraja "+barajita);
+
    // System.out.println(red.toString());
     }
 

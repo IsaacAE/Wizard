@@ -30,5 +30,6 @@ public class Jugador {
 
   public Baraja barajear(Baraja baraja) {
     //return baraja.revolver();
+    return null;
   }
 }
