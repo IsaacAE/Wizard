@@ -33,6 +33,8 @@ public class Sistema {
         } else if (eleccion == 2) {
           if (validarComienzo()) {
             System.out.println("Comenzando en breves");
+            valido = true;
+            iniciarJuego();
           } else {
             valido = false;
           }
@@ -46,7 +48,12 @@ public class Sistema {
         valido = false;
         //escaner.next();
       }
+      System.out.println(valido);
     } while (valido == false);
+  }
+
+  private void iniciarJuego() {
+    juego.mostrarJugadores();
   }
 
   private boolean validarComienzo() {

@@ -26,7 +26,7 @@ public class Juego {
    * Muestra a los jugadores contenidos en la lista e imprime
    * su mano
    */
-  public void mostrarJugadores() {
+  public void mostrarJugadoresM() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
     while (iteradorLista.hasNext()) {
@@ -36,6 +36,15 @@ public class Juego {
       System.out.println("-------------------");
     }
   }
+  /**
+   * Muestra a los jugadores contenidos en la lista
+   */
+  public void mostrarJugadores() {
+    System.out.println("Estos son los jugadores");
+    System.out.println(jugadores+"\n");
+  }
+
+
 
   /**
    * Agregar jugadores a la lista
