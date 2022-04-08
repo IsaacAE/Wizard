@@ -581,4 +581,11 @@ public class Lista<T> implements Collection<T> {
     delete(aux.elemento);
     return aux.elemento;
   }
+
+  public T peek() {
+    if (isEmpty()) {
+      throw new NoSuchElementException("");
+    }
+    return cabeza.elemento;
+  }
 }

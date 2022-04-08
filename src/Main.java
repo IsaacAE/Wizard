@@ -79,8 +79,17 @@ return totalJugadores;
       juego.mostrarJugadores();
       System.out.println("Baraja lenght -->"+tablero.barajita);*/
       Sistema sistema = new Sistema();
+      Scanner escaner = new Scanner(System.in);
+      Juego juego = new Juego();
+      Jugador juan = new Jugador("juan");
+      juego.jugadores.add(juan);
+      Tablero tablero = new Tablero();
+      //Jugador jugadorP = juego.jugadores.peek();
+     // Baraja barajaP = jugadorP.barajear(tablero.getBarajita());
+     
       sistema.iniciar();
 
+      
       
 
 
@@ -107,7 +116,7 @@ return totalJugadores;
   System.out.println(mazoP.toString());
 
   Lista<Jugador> jugadores = crearJugadores();
-  
+   
   System.out.println(jugadores.toString());*/
   /*for(int i=0; i<jugadores.length; i++){
     System.out.println(jugadores[i].toString());
