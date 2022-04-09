@@ -3,15 +3,15 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
-
+ 
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 
 public class Tablero {
 
-  Carta mazoTriunfo;
-  Carta mazoGuia;
+  Carta mazoTriunfo = new Carta("nulo", "o");
+  Carta mazoGuia= new Carta("nulo", "o");
   Baraja barajita = new Baraja();
 
   /**
@@ -39,4 +39,30 @@ public class Tablero {
   }
 
   public void ganador() {}
+
+  public Carta getMazoTriunfo(){
+    return this.mazoTriunfo;
+  }
+
+  public Carta getMazoGuia(){
+    return this.mazoGuia;
+  }
+
+  public Baraja getBarajita(){
+    return this.barajita;
+  }
+
+  public void setMazoTriunfo(Carta mazoTriunfo){
+    this.mazoTriunfo = mazoTriunfo;
+  }
+
+  public void setMazoGuia(Carta mazoGuia){
+    this.mazoGuia= mazoGuia;
+  }
+
+  public void setBarajita(Baraja barajita){
+    this.barajita= barajita;
+  }
+
+
 }

@@ -3,7 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
-
+ 
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
