@@ -3,7 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
- 
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 //import javax.lang.model.util.ElementScanner14;
@@ -24,39 +24,41 @@ public class Sistema {
     escaner = new Scanner(System.in);
     do {
       valido = true;
-      int eleccion=0;
+      int eleccion = 0;
       System.out.println("1.- agregar jugador  2.- comenzar juego 3.- salir");
       try {
         eleccion = escaner.nextInt();
-         } catch (InputMismatchException et) {
+      } catch (InputMismatchException et) {
         valido = false;
         System.out.println("ERROR 404");
         escaner.next();
         //escaner.next();
       }
-        if (eleccion == 1) {
-          solicitarDatos();
+      if (eleccion == 1) {
+        solicitarDatos();
+        valido = false;
+      } else if (eleccion == 2) {
+        if (validarComienzo()) {
+          System.out.println("Comenzando en breves");
+
+          iniciarJuego();
+          detMazoTriunfo();
+          System.out.print(
+            "\n El palo de triunfo es: " + tablero.getMazoTriunfo().toString()
+          );
+          valido = true;
+          System.out.println(valido);
+          // break; //*************
+        }else {
           valido = false;
-        } else if (eleccion == 2) {
-          if (validarComienzo()) {
-            System.out.println("Comenzando en breves");
-            
-            iniciarJuego();
-            detMazoTriunfo();
-            System.out.print("\n El palo de triunfo es: " + tablero.getMazoTriunfo().toString());
-            valido = true;
-            System.out.println(valido);
-           // break; //*************
-          } //else {
-            //valido = false;
-         // }
-        }else if (eleccion == 3) {
-          break;
-        } else {
-          valido=false;
         }
-     
-      System.out.println(valido);
+      } else if (eleccion == 3) {
+        break;
+      } else {
+        valido = false;
+      }
+
+      //System.out.println(valido);
     } while (valido == false);
   }
 
@@ -113,69 +115,64 @@ public class Sistema {
     return true;
   }
 
-  public Carta detMazoTriunfo(){
+  public Carta detMazoTriunfo() {
     //Carta ojo = new Carta ("blanco", "J");
     //tablero.setMazoTriunfo(ojo);
     tablero.setBarajita(juego.jugadores.peek().barajear(tablero.getBarajita()));
-      tablero.setMazoTriunfo(tablero.getBarajita().cartaInd(0));
-      if(tablero.getMazoTriunfo().getPalo()== "blanco" || tablero.getMazoTriunfo().getPalo()== "morado"){
-        
-        do {
-          valido = true;
-          int eleccionPalo=0;
-          Carta paloT = new Carta("rojo", "*");
-          System.out.println("Elige el palo del mazo guia, puedes elegir entre: \n1. rojo \n2. azul \n3. verde \n4. amarillo");
-          try {
-            eleccionPalo = escaner.nextInt();
-             } catch (InputMismatchException et) {
-            valido = false;
-           // System.out.println("ERROR 404");
-            escaner.next();
-            //escaner.next();
-          }
-          switch(eleccionPalo){
-            case 1: 
-            
+    tablero.setMazoTriunfo(tablero.getBarajita().cartaInd(0));
+    if (
+      tablero.getMazoTriunfo().getPalo() == "blanco" ||
+      tablero.getMazoTriunfo().getPalo() == "morado"
+    ) {
+      do {
+        valido = true;
+        int eleccionPalo = 0;
+        Carta paloT = new Carta("rojo", "*");
+        System.out.println(
+          "Elige el palo del mazo guia, puedes elegir entre: \n1. rojo \n2. azul \n3. verde \n4. amarillo"
+        );
+        try {
+          eleccionPalo = escaner.nextInt();
+        } catch (InputMismatchException et) {
+          valido = false;
+          // System.out.println("ERROR 404");
+          escaner.next();
+          //escaner.next();
+        }
+        switch (eleccionPalo) {
+          case 1:
             tablero.setMazoTriunfo(paloT);
             break;
-
-            case 2: 
+          case 2:
             paloT.setPalo("azul");
             paloT.setValor("||");
             tablero.setMazoTriunfo(paloT);
             break;
-
-            case 3: 
+          case 3:
             paloT.setPalo("verde");
             paloT.setValor("<>");
             tablero.setMazoTriunfo(paloT);
             break;
-
-            case 4: 
+          case 4:
             paloT.setPalo("amarillo");
             paloT.setValor("#");
             tablero.setMazoTriunfo(paloT);
             break;
-
-            default:
-
-            valido=false;
+          default:
+            valido = false;
             break;
-
-          }
-        }while(valido==false);
-
-        //System.out.println("Funciona");
-      }
-tablero.barajita.getMazoCartas()[0]=null;
-      return tablero.getMazoTriunfo();
+        }
+      } while (valido == false);
+      //System.out.println("Funciona");
+    }
+    tablero.barajita.getMazoCartas()[0] = null;
+    return tablero.getMazoTriunfo();
   }
-  
   //Baraja barajaP = tablero.getBarajita();
   //Jugador jugadorP = juego.jugadores.peek();
   //Baraja barajaP = jugadorP.barajear(tablero.getBarajita());
   //barajaP.cartaInd(0);
-    //tablero.setMazoTriunfo(barajaP.cartaInd(0));
-   //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
+  //tablero.setMazoTriunfo(barajaP.cartaInd(0));
+  //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
 
 }
