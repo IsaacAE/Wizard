@@ -43,8 +43,6 @@ public class Sistema {
           iniciarJuego();
           detMazoTriunfo();
           valido = true;
-          //System.out.println(valido);
-          // break; //*************
         } else {
           valido = false;
         }
@@ -117,13 +115,20 @@ public class Sistema {
   }
 
   public Carta detMazoTriunfo() {
-    Carta aux = tablero.sacarPaloTrinfo();
+    //Carta aux = tablero.sacarPaloTrinfo();
+    Carta aux = tablero.barajita.sacarCarta();
     if(aux.getPalo().equals("blanco")){
       System.out.println("se juega sin palo del trinfo");
     }else if(aux.getPalo().equals("morado")){
       System.out.println("El palo lo elije quien barajeo");
+      System.out.println(juego.barajeadores.peek());
+      tablero = juego.defPaloTriunfoWizard(tablero);
+      System.out.println("palo del triunfo "+tablero.getMazoTriunfo()+" palo -> "+tablero.getMazoTriunfo().getPalo());
+      
+    }else{
+      System.out.println("Palo del triunfo" + aux);
     }
-    System.out.println("Palo del triunfo" + aux);
+    
     return aux;
     //Carta ojo = new Carta ("blanco", "J");
     //tablero.setMazoTriunfo(ojo);

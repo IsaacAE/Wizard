@@ -4,7 +4,10 @@
  */
 package wizard.src;
  
+import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.Scanner;
+
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
@@ -14,6 +17,7 @@ public class Juego {
   Lista<Lista<Integer>> puntosJugadores = new Lista();
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
+  Cola <Jugador> barajeadores = new Cola();
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
 
   /* public Juego(int jugadores) {
@@ -74,13 +78,61 @@ public class Juego {
     //return jugadores.indexOf(nombre);
   }
 
+  public Tablero defPaloTriunfoWizard(Tablero tablero){
+    Scanner escaner = new Scanner(System.in);
+    boolean valido;
+      do {
+        valido = true;
+        int eleccionPalo = 0;
+        Carta paloT = new Carta("rojo", "*");
+        System.out.println(
+          "Elige el palo del mazo guia, puedes elegir entre: \n1. rojo \n2. azul \n3. verde \n4. amarillo"
+        );
+        try {
+          eleccionPalo = escaner.nextInt();
+        } catch (InputMismatchException et) {
+          valido = false;
+          // System.out.println("ERROR 404");
+          escaner.next();
+          //escaner.next();
+        }
+        switch (eleccionPalo) {
+          case 1:
+            tablero.setMazoTriunfo(paloT);
+            break;
+          case 2:
+            paloT.setPalo("azul");
+            paloT.setValor("||");
+            tablero.setMazoTriunfo(paloT);
+            break;
+          case 3:
+            paloT.setPalo("verde");
+            paloT.setValor("<>");
+            tablero.setMazoTriunfo(paloT);
+            break;
+          case 4:
+            paloT.setPalo("amarillo");
+            paloT.setValor("#");
+            tablero.setMazoTriunfo(paloT);
+            break;
+          default:
+            valido = false;
+            break;
+        }
+      } while (valido == false);
+      //System.out.println("Funciona");
+    tablero.barajita.getMazoCartas()[0] = null;
+    return tablero;
+}
+
   public Tablero barajearJugador(Tablero tablero) {
     int ronda = tablero.getRonda();
     if(ronda == 1){
       tablero.setBarajita(jugadores.peek().barajear(tablero));
       this.setBarajita(tablero.getBarajita());
+      barajeadores.push(jugadores.peek());
+      System.out.println("Jugador: "+jugadores.peek()+" esta barajeando");
       return tablero;
-
     }
     this.setBarajita(tablero.getBarajita());
     return null;

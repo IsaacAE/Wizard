@@ -73,6 +73,7 @@ public class Jugador {
    */
   public Baraja barajear(Tablero tablero) {
     Baraja baraja = tablero.getBarajita();
+    //baraja.revolver();
     baraja.revolver();
     barajeo.add(tablero.getRonda());
     return baraja;
