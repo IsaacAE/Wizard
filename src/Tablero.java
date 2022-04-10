@@ -3,7 +3,7 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
- 
+
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
@@ -11,8 +11,9 @@ import wizard.src.Jugador;
 public class Tablero {
 
   Carta mazoTriunfo = new Carta("nulo", "o");
-  Carta mazoGuia= new Carta("nulo", "o");
+  Carta mazoGuia = new Carta("nulo", "o");
   Baraja barajita = new Baraja();
+  int ronda = 1;
 
   /**
    * Reparte cartas a cada jugador contenido en la lista jugadores
@@ -38,31 +39,43 @@ public class Tablero {
     return jugadores;
   }
 
+  public Carta sacarPaloTrinfo() {
+    Carta aux = this.getBarajita().cartaIndex(0);
+    this.setMazoTriunfo(aux);
+    return aux;
+  }
+
   public void ganador() {}
 
-  public Carta getMazoTriunfo(){
+  public Carta getMazoTriunfo() {
     return this.mazoTriunfo;
   }
 
-  public Carta getMazoGuia(){
+  public Carta getMazoGuia() {
     return this.mazoGuia;
   }
 
-  public Baraja getBarajita(){
+  public int getRonda() {
+    return this.ronda;
+  }
+
+  public void setMazoGuia(int ronda) {
+    this.ronda = ronda;
+  }
+
+  public Baraja getBarajita() {
     return this.barajita;
   }
 
-  public void setMazoTriunfo(Carta mazoTriunfo){
+  public void setMazoTriunfo(Carta mazoTriunfo) {
     this.mazoTriunfo = mazoTriunfo;
   }
 
-  public void setMazoGuia(Carta mazoGuia){
-    this.mazoGuia= mazoGuia;
+  public void setMazoGuia(Carta mazoGuia) {
+    this.mazoGuia = mazoGuia;
   }
 
-  public void setBarajita(Baraja barajita){
-    this.barajita= barajita;
+  public void setBarajita(Baraja barajita) {
+    this.barajita = barajita;
   }
-
-
 }

@@ -40,16 +40,12 @@ public class Sistema {
       } else if (eleccion == 2) {
         if (validarComienzo()) {
           System.out.println("Comenzando en breves");
-
           iniciarJuego();
           detMazoTriunfo();
-          System.out.print(
-            "\n El palo de triunfo es: " + tablero.getMazoTriunfo().toString()
-          );
           valido = true;
-          System.out.println(valido);
+          //System.out.println(valido);
           // break; //*************
-        }else {
+        } else {
           valido = false;
         }
       } else if (eleccion == 3) {
@@ -57,13 +53,14 @@ public class Sistema {
       } else {
         valido = false;
       }
-
       //System.out.println(valido);
     } while (valido == false);
   }
 
   private void iniciarJuego() {
     juego.mostrarJugadores();
+    barajear();
+    System.out.println("Mostando la baraja "+juego.barajita);
     //break;
   }
 
@@ -115,11 +112,22 @@ public class Sistema {
     return true;
   }
 
+  public void barajear() {
+    tablero.setBarajita(juego.barajearJugador(tablero).getBarajita());
+  }
+
   public Carta detMazoTriunfo() {
+    Carta aux = tablero.sacarPaloTrinfo();
+    if(aux.getPalo().equals("blanco")){
+      System.out.println("se juega sin palo del trinfo");
+    }else if(aux.getPalo().equals("morado")){
+      System.out.println("El palo lo elije quien barajeo");
+    }
+    System.out.println("Palo del triunfo" + aux);
+    return aux;
     //Carta ojo = new Carta ("blanco", "J");
     //tablero.setMazoTriunfo(ojo);
-    tablero.setBarajita(juego.jugadores.peek().barajear(tablero.getBarajita()));
-    tablero.setMazoTriunfo(tablero.getBarajita().cartaInd(0));
+    /*tablero.setMazoTriunfo(tablero.getBarajita().cartaIndex(0));
     if (
       tablero.getMazoTriunfo().getPalo() == "blanco" ||
       tablero.getMazoTriunfo().getPalo() == "morado"
@@ -166,7 +174,7 @@ public class Sistema {
       //System.out.println("Funciona");
     }
     tablero.barajita.getMazoCartas()[0] = null;
-    return tablero.getMazoTriunfo();
+    return tablero.getMazoTriunfo();*/
   }
   //Baraja barajaP = tablero.getBarajita();
   //Jugador jugadorP = juego.jugadores.peek();

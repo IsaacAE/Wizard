@@ -7,12 +7,14 @@ package wizard.src;
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
+import wizard.src.Tablero;
 
 public class Juego {
 
   Lista<Lista<Integer>> puntosJugadores = new Lista();
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
+  //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
 
   /* public Juego(int jugadores) {
     Lista <Integer> jugador;
@@ -70,6 +72,27 @@ public class Juego {
     }
     return null;
     //return jugadores.indexOf(nombre);
+  }
+
+  public Tablero barajearJugador(Tablero tablero) {
+    int ronda = tablero.getRonda();
+    if(ronda == 1){
+      tablero.setBarajita(jugadores.peek().barajear(tablero));
+      this.setBarajita(tablero.getBarajita());
+      return tablero;
+
+    }
+    this.setBarajita(tablero.getBarajita());
+    return null;
+
+  }
+
+  public void setBarajita(Baraja barajita) {
+    this.barajita = barajita;
+  }
+
+  public Baraja getBarajota() {
+    return this.barajita;
   }
 
   public void setJugadores(Lista<Jugador> jugadores) {

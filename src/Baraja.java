@@ -150,8 +150,8 @@ public class Baraja {
     this.palo = palo;
   }
 
-  public Carta cartaInd(int ind){
-    return this.mazoCartas[ind];
+  public Carta cartaIndex(int index){
+    return this.mazoCartas[index];
   }
   
 }
