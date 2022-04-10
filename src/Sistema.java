@@ -167,7 +167,7 @@ public class Sistema {
 
         //System.out.println("Funciona");
       }
-tablero.barajita.getMazoCartas()[0]=null;
+      tablero.barajita.getMazoCartas()[0]=null;
       return tablero.getMazoTriunfo();
   }
   
