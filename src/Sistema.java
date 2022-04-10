@@ -55,10 +55,14 @@ public class Sistema {
     } while (valido == false);
   }
 
+  /**
+   * va a mostrar a los jugadores registrados
+   * llama el metodo barajear
+   */
   private void iniciarJuego() {
     juego.mostrarJugadores();
     barajear();
-    System.out.println("Mostando la baraja "+juego.barajita);
+    //System.out.println("Mostando la baraja "+juego.barajita);
     //break;
   }
 
@@ -95,6 +99,12 @@ public class Sistema {
     System.out.println("Jugador agregado exitosamente");
   }
 
+  /**
+   * Validar si el nombre del jugador ya existe, en caso
+   * de que si, no se puede volver a repetir
+   * @param nombre
+   * @return boolean
+   */
   private boolean validarNombre(String nombre) {
     //boolean bol = true;
     Jugador aux = juego.buscarJugador(nombre);
@@ -110,10 +120,22 @@ public class Sistema {
     return true;
   }
 
+  /**
+   * manda a llamar al metodo barajear jugador y la baraja que regresa la 
+   * guardamos en barajear
+   */
   public void barajear() {
     tablero.setBarajita(juego.barajearJugador(tablero).getBarajita());
   }
 
+  /**
+   * Determina el mazo del triunfo, va a sacar una carta ya revuelta de la baraja,
+   * si esta no es joker ni wizard se imprime, si es joker se juega sin palo del triunfo,
+   * si es wizard manda a llamar el metodo defPaloTriundoWizard de la clase juego que 
+   * regresa un tablero
+   * 
+   * @return Carta
+   */
   public Carta detMazoTriunfo() {
     //Carta aux = tablero.sacarPaloTrinfo();
     Carta aux = tablero.barajita.sacarCarta();
