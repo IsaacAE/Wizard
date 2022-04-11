@@ -51,7 +51,7 @@ public class Carta{
         return this.valor;
 
     }
-
+ 
 /**
  * Metodo para modificar el valor de la carta
  * @author Mauricio Rubio Haro

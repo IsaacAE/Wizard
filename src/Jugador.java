@@ -78,14 +78,14 @@ public class Jugador {
     barajeo.add(tablero.getRonda());
     return baraja;
   }
-
+ 
   /**
    * El jugador toma una carta de su mano y la regresa
    * @param indice
    * @return Carta
    */
   public Carta jugarCarta(int indice) {
-    Carta aux = mano.eliminarIndice(indice);
+    Carta aux = mano.elemInd(indice);
     return aux;
   }
 
