@@ -13,6 +13,8 @@ public class Jugador {
   Lista<Carta> mano = new Lista();
   String nombre;
   Lista<Integer> prediccion = new Lista();
+  Lista <Integer> barajeo = new Lista();
+  Lista<Lista <Carta>> jugadas = new Lista();
 
   //Lista<Cola<Carta>> jugadas = new Lista();
 
@@ -69,8 +71,11 @@ public class Jugador {
    * @param baraja
    * @return Baraja
    */
-  public Baraja barajear(Baraja baraja) {
+  public Baraja barajear(Tablero tablero) {
+    Baraja baraja = tablero.getBarajita();
+    //baraja.revolver();
     baraja.revolver();
+    barajeo.add(tablero.getRonda());
     return baraja;
   }
  
