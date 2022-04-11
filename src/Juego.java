@@ -13,7 +13,7 @@ public class Juego {
   Lista<Lista<Integer>> puntosJugadores = new Lista();
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
-
+ 
   /* public Juego(int jugadores) {
     Lista <Integer> jugador;
     for (int i = 0; i < jugadores; i++) {
@@ -79,4 +79,28 @@ public class Juego {
   public Lista<Jugador> getJugadores() {
     return this.jugadores;
   }
+
+  public boolean validarJugada(Carta carta, Lista<Carta> cartas, Tablero tablero){
+    boolean contiene=true;
+    if(carta.getPalo()== "morado" ||carta.getPalo()== "blanco"){
+      return true;
+    }
+      for(int i =0; i<cartas.longi; i++){
+        if(cartas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
+          contiene = true;
+          break;
+        }else{
+          contiene = false;
+        }
+      }
+        if((contiene==true) && (carta.getPalo()!= tablero.getMazoGuia().getPalo())){
+          return false;
+        }else{
+          return true;
+        }
+      
+  }
+
+
+  
 }

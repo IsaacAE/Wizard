@@ -582,6 +582,16 @@ public class Lista<T> implements Collection<T> {
     return aux.elemento;
   }
 
+  public T elemInd(int indice){
+    int numAux=1;
+    Nodo aux = this.cabeza;
+    while(numAux<indice){
+      aux= aux.siguiente;
+      numAux++;
+    }
+    return aux.elemento;
+  }
+
   public T peek() {
     if (isEmpty()) {
       throw new NoSuchElementException("");

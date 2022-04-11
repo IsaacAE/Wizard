@@ -13,7 +13,7 @@ public class Tablero {
   Carta mazoTriunfo = new Carta("nulo", "o");
   Carta mazoGuia= new Carta("nulo", "o");
   Baraja barajita = new Baraja();
-
+ 
   /**
    * Reparte cartas a cada jugador contenido en la lista jugadores
    * según el numero de ronda, regresa una lista de jugadores en

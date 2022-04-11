@@ -88,8 +88,8 @@ return totalJugadores;
      // Baraja barajaP = jugadorP.barajear(tablero.getBarajita());
      
       sistema.iniciar();
-
-      
+ 
+       
       
 
 

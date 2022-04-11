@@ -42,10 +42,32 @@ public class Sistema {
             System.out.println("Comenzando en breves");
             
             iniciarJuego();
+            int ronda = 5;
+            tablero.getMazoGuia().setPalo("verde");
+            tablero.getBarajita().revolver();
+            tablero.repartir(ronda, juego.getJugadores());
+            
+            //juego.getJugadores().peek().getMano().add(tablero.getBarajita().sacarCarta());
+           // juego.getJugadores().peek().getMano().add(tablero.getBarajita().sacarCarta());
+            System.out.println( juego.getJugadores().peek().mostrarMano());
+            System.out.println( juego.getJugadores().elemInd(1).mostrarMano());
+            System.out.println( juego.getJugadores().elemInd(2).mostrarMano());
             detMazoTriunfo();
             System.out.print("\n El palo de triunfo es: " + tablero.getMazoTriunfo().toString());
-            valido = true;
-            System.out.println(valido);
+            //PRUEBAS
+          
+           int elec = escaner.nextInt();
+          Carta auxi=  juego.getJugadores().peek().jugarCarta(elec);
+          if(juego.validarJugada(auxi, juego.getJugadores().peek().getMano(), tablero)){
+            juego.getJugadores().peek().getMano().delete(auxi);
+            System.out.println( juego.getJugadores().peek().mostrarMano());
+          }else{
+            System.out.println("Jugada prohibida");
+          }
+           //FIN PRUEBAS
+
+            //valido = true;
+           // System.out.println(valido);
            // break; //*************
           } //else {
             //valido = false;
@@ -117,7 +139,7 @@ public class Sistema {
     //Carta ojo = new Carta ("blanco", "J");
     //tablero.setMazoTriunfo(ojo);
     tablero.setBarajita(juego.jugadores.peek().barajear(tablero.getBarajita()));
-      tablero.setMazoTriunfo(tablero.getBarajita().cartaInd(0));
+      tablero.setMazoTriunfo(tablero.getBarajita().sacarCarta());
       if(tablero.getMazoTriunfo().getPalo()== "blanco" || tablero.getMazoTriunfo().getPalo()== "morado"){
         
         do {
@@ -155,7 +177,7 @@ public class Sistema {
             paloT.setPalo("amarillo");
             paloT.setValor("#");
             tablero.setMazoTriunfo(paloT);
-            break;
+            break; 
 
             default:
 
