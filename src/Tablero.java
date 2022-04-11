@@ -14,9 +14,9 @@ public class Tablero {
   Carta mazoGuia = new Carta("nulo", "o");
   Baraja barajita = new Baraja();
 
- // int ronda = 1;
+ int ronda = 1;
 
-
+ 
   /**
    * Reparte cartas a cada jugador contenido en la lista jugadores
    * según el numero de ronda, regresa una lista de jugadores en
@@ -42,7 +42,7 @@ public class Tablero {
   }
 
   public Carta sacarPaloTrinfo() {
-    Carta aux = this.getBarajita().cartaIndex(0);
+    Carta aux = this.getBarajita().sacarCarta();
     this.setMazoTriunfo(aux);
     return aux;
   }
@@ -79,5 +79,14 @@ public class Tablero {
 
   public void setBarajita(Baraja barajita) {
     this.barajita = barajita;
+  }
+
+  public boolean hayMazoGuia(){
+    if(mazoGuia.getPalo()=="verde" || mazoGuia.getPalo()=="rojo" || mazoGuia.getPalo()=="azul" || mazoGuia.getPalo()=="amarillo"){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
