@@ -173,7 +173,7 @@ public class Juego {
     if(carta.getPalo()== "morado" ||carta.getPalo()== "blanco"){
       return true;
     }
-      for(int i =0; i<cartas.longi; i++){
+      for(int i =0; i<=cartas.longi; i++){
         if(cartas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
           contiene = true;
           break;
@@ -217,22 +217,52 @@ public Lista<Carta> jugarTurno(Tablero tablero){
       }
      System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
       Scanner escan = new Scanner(System.in);
+int ind =0;
+boolean correcto = true;
       System.out.println("Elige una carta para jugar");
-      int ind = escan.nextInt();
+      do{
+      correcto=true;
+      try{
+       ind = escan.nextInt();
+      
+      if(ind<1 || ind>jugadores.elemInd(i).getMano().size()){
+       //ind=0;
+        System.out.println("Eleccion no valida");
+        throw new InputMismatchException();
+      }
+    }catch(InputMismatchException ef){
+      escan.nextLine();
+      System.out.println("Intenta de nuevo, debes colocar el indice de la carta");
+      correcto=false;
+    }
+    catch(NullPointerException eg){
+      escan.nextLine();
+      System.out.println("Intenta de nuevo, debes colocar el indice de la carta");
+      correcto=false;
+    }
+      System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
+    if(correcto==true){
       aux = jugadores.elemInd(i).jugarCarta(ind);
+    }
       if(tablero.getMazoGuia().getPalo()=="blanco"||tablero.getMazoGuia().getPalo()=="morado"||tablero.getMazoGuia().getPalo()=="nulo"){
         tablero.setMazoGuia(aux);
         auxiliar = aux;
         
       }
+      
+        //correcto=true;
+        if(correcto==true){
       if(validarJugada(aux, jugadores.elemInd(i).getMano(), tablero) == true){
         cartasJugadas.agregaFinal(aux);
         jugadores.elemInd(i).getMano().delete(aux);
         System.out.println(jugadores.elemInd(i).mostrarMano());
         
       }else{
-        System.out.println("ERROR 505");
+        System.out.println("Movimiento invalido");
+        correcto = false;
       }
+    }
+    }while(correcto==false);
       
     }
     //tablero.getMazoGuia().setPalo("nulo");
