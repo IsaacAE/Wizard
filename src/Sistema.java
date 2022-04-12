@@ -42,43 +42,20 @@ public class Sistema {
             System.out.println("Comenzando en breves");
              
             iniciarJuego();
-            /*tablero.getBarajita().getMazoCartas()[0].setPalo("blanco");
-            tablero.getBarajita().getMazoCartas()[1].setPalo("blanco");
-            tablero.getBarajita().getMazoCartas()[2].setPalo("blanco");
-            */
-            int ronda = 5;
+
+
            // tablero.getMazoGuia().setPalo("verde");
             //tablero.getBarajita().revolver();
-            tablero.repartir(ronda, juego.getJugadores());
+            tablero.repartir(juego.getJugadores());
+
             detMazoTriunfo();
+            //apostar(tablero.getRonda());
             juego.jugarRonda(tablero);
+
             
-            //juego.getJugadores().peek().getMano().add(tablero.getBarajita().sacarCarta());
-           // juego.getJugadores().peek().getMano().add(tablero.getBarajita().sacarCarta());
-            //System.out.println( juego.getJugadores().peek().mostrarMano());
-            //System.out.println( juego.getJugadores().elemInd(1).mostrarMano());
-           // System.out.println( juego.getJugadores().elemInd(2).mostrarMano());
-           
-           // System.out.print("\n El palo de triunfo es: " + tablero.getMazoTriunfo().toString());
-            //PRUEBAS
-          
-          /* int elec = escaner.nextInt();
-          Carta auxi=  juego.getJugadores().peek().jugarCarta(elec);
-          if(juego.validarJugada(auxi, juego.getJugadores().peek().getMano(), tablero)){
-            juego.getJugadores().peek().getMano().delete(auxi);
-            System.out.println( juego.getJugadores().peek().mostrarMano());
-          }else{
-            System.out.println("Jugada prohibida");
-          }*/
-
-           //FIN PRUEBAS
-
-            //valido = true;
-           // System.out.println(valido);
-           // break; //*************
-          } //else {
-            //valido = false;
-         // }
+            
+            
+          }
         }else if (eleccion == 3) {
           break;
         }
@@ -86,6 +63,10 @@ public class Sistema {
      
       //System.out.println(valido);
     } while (valido == false);
+  }
+
+  public void apostar(int ronda) {
+    juego.apuestas(ronda);
   }
 
   /**
@@ -173,8 +154,10 @@ public class Sistema {
     //Carta aux = tablero.sacarPaloTrinfo();
     Carta aux = tablero.barajita.sacarCarta();
     if(aux.getPalo().equals("blanco")){
+      System.out.println("Palo del triunfo" + aux);
       System.out.println("se juega sin palo del triunfo");
     }else if(aux.getPalo().equals("morado")){
+      System.out.println("Palo del triunfo" + aux);
       System.out.println("El palo lo elige quien barajeo");
       System.out.println(juego.barajeadores.peek());
       tablero = juego.defPaloTriunfoWizard(tablero);

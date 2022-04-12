@@ -13,8 +13,7 @@ public class Tablero {
   Carta mazoTriunfo = new Carta("nulo", "o");
   Carta mazoGuia = new Carta("nulo", "o");
   Baraja barajita = new Baraja();
-
- int ronda = 1;
+  int ronda = 2;
 
  
   /**
@@ -25,11 +24,11 @@ public class Tablero {
    * @param jugadores
    * @return
    */
-  public Lista<Jugador> repartir(int ronda, Lista<Jugador> jugadores) {
+  public Lista<Jugador> repartir(Lista<Jugador> jugadores) {
     Lista<Carta> reparticion = new Lista();
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     for (int i = 0; i < jugadores.size(); i++) {
-      for (int j = 0; j < ronda; j++) {
+      for (int j = 0; j < this.ronda; j++) {
         reparticion.add(barajita.sacarCarta());
       }
       if (iteradorLista.hasNext()) {

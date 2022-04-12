@@ -3,9 +3,10 @@
  * @author Kevin Isaac Alcantara Estrada
  */
 package wizard.src;
- 
+
 import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Scanner;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
@@ -13,13 +14,13 @@ import wizard.src.Tablero;
 
 public class Juego {
 
-  Lista<Lista<Integer>> puntosJugadores = new Lista();
+  //Lista<Lista<Integer>> puntosJugadores = new Lista();
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
+  Scanner escaner;
 
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
-
 
   /* public Juego(int jugadores) {
     Lista <Integer> jugador;
@@ -50,6 +51,48 @@ public class Juego {
   public void mostrarJugadores() {
     System.out.println("Estos son los jugadores");
     System.out.println(jugadores + "\n");
+  }
+
+  public void mostrarPredicciones() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      System.out.println("Prediccion del jugador " + aux.getNombre());
+      System.out.println(aux.mostrarPrediccion());
+    }
+  }
+
+  //Falta determina quien va a ganar una ronda
+
+  public void apuestas(int ronda) {
+    escaner = new Scanner(System.in);
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    int apuesta;
+    boolean bol = false;
+    for (int i = 0; i < jugadores.size(); i++) {
+      aux = iteradorLista.next();
+      System.out.println("Jugador " + aux.getNombre() + " debe apostar");
+      do {
+        System.out.println("¿Cuantas rondas ganaras? (0 - " + (ronda) + ")");
+        try {
+          apuesta = escaner.nextInt();
+          if (!(apuesta >= 0 && apuesta <= ronda)) {
+            bol = false;
+            System.out.println("Ingresa una opcion valida");
+          } else {
+            bol = true;
+            aux.predecir(apuesta);
+          }
+        } catch (Exception e) {
+          System.out.println("ERROR");
+          bol = false;
+          escaner = new Scanner(System.in);
+        }
+      } while (!bol);
+    }
+    mostrarPredicciones();
   }
 
   /**
@@ -140,7 +183,8 @@ public class Juego {
    */
   public Tablero barajearJugador(Tablero tablero) {
     int ronda = tablero.getRonda();
-    if (ronda == 1) {
+    System.out.println("ronda -->" + ronda);
+    if (ronda == 1 || ronda != 0) {
       tablero.setBarajita(jugadores.peek().barajear(tablero));
       this.setBarajita(tablero.getBarajita());
       barajeadores.push(jugadores.peek());
@@ -167,6 +211,7 @@ public class Juego {
     return this.jugadores;
   }
 
+
   /**
    * Metodo para verificar que la jugada que quiere realizar el jugador es valida
    * @param carta Representa la carta que quiere jugarse
@@ -176,26 +221,29 @@ public class Juego {
    */
   public boolean validarJugada(Carta carta, Lista<Carta> cartas, Tablero tablero){
     boolean contiene=true;
+  
 
-    if(carta.getPalo()== "morado" ||carta.getPalo()== "blanco"){
+    if (carta.getPalo() == "morado" || carta.getPalo() == "blanco") {
       return true;
     }
-      for(int i =0; i<=cartas.longi; i++){
-        if(cartas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
-          contiene = true;
-          break;
-        }else{
-          contiene = false;
-        }
+    for (int i = 0; i <= cartas.longi; i++) {
+      if (cartas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()) {
+        contiene = true;
+        break;
+      } else {
+        contiene = false;
       }
-        if((contiene==true) && (carta.getPalo()!= tablero.getMazoGuia().getPalo())){
-          return false;
-        }else{
-          return true;
-        }
-      
+    }
+    if (
+      (contiene == true) && (carta.getPalo() != tablero.getMazoGuia().getPalo())
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
+<<<<<<< HEAD
   /**
    * Metodo para jugar toda una ronda hasta que el ultimo jugador se quede sin cartas
    * @param tablero Representa el tablero en donde se juega la partida
@@ -210,13 +258,33 @@ public void jugarRonda(Tablero tablero){
   Lista<Carta> cartasJugadas= jugarTurno(tablero);
  System.out.println("Las cartas jugadas fueron: " + cartasJugadas.toString());
  
-
+	System.out.println("Mandando a llamar ganar truco");
     System.out.println(ganador(cartasJugadas, tablero).toString());
    // tablero.getMazoGuia().setPalo("nulo");
    tablero.getMazoGuia().setPalo("nulo");
+
+    }
+    System.out.println("Mandando a llamar trucos de ronda");
+   // ganadorRonda();
     
   }
-}
+
+  public void ganadorTruco(Jugador ganador) {
+    ganador.ganoTruco();
+  }
+
+  public void ganadorRonda() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      aux.trucosRonda();
+      System.out.println("jugador "+ aux.getNombre()+" puntos: "+aux.getRondasGanadas());
+    }
+
+    
+  }
+
 
 /**
    * Metodo pque sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
@@ -236,14 +304,20 @@ public Lista<Carta> jugarTurno(Tablero tablero){
           System.out.println("El palo guía es "+ auxiliar.toString());
           System.out.println("El palo  es "+ auxiliar.getPalo());
         }else{
+
           System.out.println("No hay palo guia");
         }
       }
-     System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
+      System.out.println(
+        jugadores.elemInd(i).mostrarMano() +
+        "Mano del jugador " +
+        jugadores.elemInd(i).toString()
+      );
       Scanner escan = new Scanner(System.in);
-int ind =0;
-boolean correcto = true;
+      int ind = 0;
+      boolean correcto = true;
       System.out.println("Elige una carta para jugar");
+
       do{
       correcto=true;
       try{
