@@ -42,9 +42,13 @@ public class Sistema {
             System.out.println("Comenzando en breves");
              
             iniciarJuego();
-            int ronda = 3;
+            /*tablero.getBarajita().getMazoCartas()[0].setPalo("blanco");
+            tablero.getBarajita().getMazoCartas()[1].setPalo("blanco");
+            tablero.getBarajita().getMazoCartas()[2].setPalo("blanco");
+            */
+            int ronda = 5;
            // tablero.getMazoGuia().setPalo("verde");
-            tablero.getBarajita().revolver();
+            //tablero.getBarajita().revolver();
             tablero.repartir(ronda, juego.getJugadores());
             detMazoTriunfo();
             juego.jugarRonda(tablero);
@@ -178,6 +182,7 @@ public class Sistema {
       
     }else{
       System.out.println("Palo del triunfo" + aux);
+      tablero.setMazoTriunfo(aux);
     }
     
     return aux;

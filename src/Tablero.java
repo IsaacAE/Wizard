@@ -47,7 +47,7 @@ public class Tablero {
     return aux;
   }
 
-  public void ganador() {}
+  
 
   public Carta getMazoTriunfo() {
     return this.mazoTriunfo;
@@ -80,7 +80,10 @@ public class Tablero {
   public void setBarajita(Baraja barajita) {
     this.barajita = barajita;
   }
-
+/**
+   * Metodo para saber si hay un palo guia valido
+   * @return boolean
+   */
   public boolean hayMazoGuia(){
     if(mazoGuia.getPalo()=="verde" || mazoGuia.getPalo()=="rojo" || mazoGuia.getPalo()=="azul" || mazoGuia.getPalo()=="amarillo"){
       return true;
