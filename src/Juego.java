@@ -7,7 +7,6 @@ package wizard.src;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Scanner;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
@@ -18,6 +17,7 @@ public class Juego {
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
+  int maxRondas=0;
   Scanner escaner;
 
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
@@ -29,7 +29,23 @@ public class Juego {
         puntosJugadores.add(jugador);
     }
   }*/
-
+public void modMaxRondas(){
+  int aux = jugadores.size();
+  switch(aux){
+    case 3: 
+    maxRondas=20;
+    break;
+    case 4:
+    maxRondas= 15;
+    break;
+    case 5: 
+    maxRondas=12;
+    break;
+    case 6: 
+    maxRondas=10;
+    break;
+  }
+}
   /**
    * Muestra a los jugadores contenidos en la lista e imprime
    * su mano
@@ -53,6 +69,11 @@ public class Juego {
     System.out.println(jugadores + "\n");
   }
 
+  public int getMaxRondas() {
+    return this.maxRondas;
+  }
+
+  
   public void mostrarPredicciones() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -60,6 +81,26 @@ public class Juego {
       aux = iteradorLista.next();
       System.out.println("Prediccion del jugador " + aux.getNombre());
       System.out.println(aux.mostrarPrediccion());
+    }
+  }
+
+  public void mostrarTrucosGanados() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      System.out.println("El jugador  " + aux.getNombre() + " gano " + aux.getContadorTruco());
+    
+    }
+  }
+
+  public void vaciarTrucosGanados() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      aux.setContadorTruco(0);
+    
     }
   }
 
@@ -73,6 +114,7 @@ public class Juego {
     boolean bol = false;
     for (int i = 0; i < jugadores.size(); i++) {
       aux = iteradorLista.next();
+      System.out.println(aux.getNombre() + " tu mano es: "+ aux.mostrarMano());
       System.out.println("Jugador " + aux.getNombre() + " debe apostar");
       do {
         System.out.println("¿Cuantas rondas ganaras? (0 - " + (ronda) + ")");
@@ -249,22 +291,34 @@ public class Juego {
    * @param tablero Representa el tablero en donde se juega la partida
    */
 public void jugarRonda(Tablero tablero){
-  Carta mago = new Carta("morado", "W");
+  //Carta mago = new Carta("morado", "W");
   int i=0, j=0;
   boolean continua = true;
   int numJug = jugadores.longi - 1 ;
+modMaxRondas();
+int rondasJug = tablero.getRonda();
+//while(rondasJug<=maxRondas){
+  
+  apuestas(tablero.getRonda());
   while(jugadores.elemInd(numJug).getMano().isEmpty()==false){
    // System.out.println(jugarTurno(tablero).toString());
   Lista<Carta> cartasJugadas= jugarTurno(tablero);
+  
  System.out.println("Las cartas jugadas fueron: " + cartasJugadas.toString());
  
 	System.out.println("Mandando a llamar ganar truco");
-    System.out.println(ganador(cartasJugadas, tablero).toString());
-   // tablero.getMazoGuia().setPalo("nulo");
+  Jugador ganadorT =ganador(cartasJugadas, tablero);
+    System.out.println("El ganador del truco es: "+ ganadorT.toString());
+    ganadorTruco(ganadorT);
+   
    tablero.getMazoGuia().setPalo("nulo");
 
     }
-    System.out.println("Mandando a llamar trucos de ronda");
+    mostrarTrucosGanados();
+    vaciarTrucosGanados();
+    tablero.pasaRonda();
+  //}
+    //System.out.println("Mandando a llamar trucos de ronda");
    // ganadorRonda();
     
   }
@@ -276,6 +330,7 @@ public void jugarRonda(Tablero tablero){
   public void ganadorRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
+   
     while (iteradorLista.hasNext()) {
       aux = iteradorLista.next();
       aux.trucosRonda();

@@ -32,6 +32,15 @@ public class Jugador {
     contadorTruco++;
   }
 
+  public int getContadorTruco(){
+    return this.contadorTruco;
+  }
+
+  public void setContadorTruco(int contadorTruco){
+     this.contadorTruco=contadorTruco;
+  }
+
+
   public void trucosRonda(){
     rondasGanadas.add(contadorTruco);
   }
