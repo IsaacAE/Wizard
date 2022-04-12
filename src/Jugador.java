@@ -13,8 +13,8 @@ public class Jugador {
   Lista<Carta> mano = new Lista();
   String nombre;
   Lista<Integer> prediccion = new Lista();
-  Lista <Integer> barajeo = new Lista();
-  Lista<Lista <Carta>> jugadas = new Lista();
+  Lista<Integer> barajeo = new Lista();
+  Lista<Lista<Carta>> jugadas = new Lista();
 
   //Lista<Cola<Carta>> jugadas = new Lista();
 
@@ -54,6 +54,18 @@ public class Jugador {
   }
 
   /**
+   * Se muestra la prediccion segun la ronda
+   * @param ronda
+   * @return String
+   */
+  public String mostrarPrediccion() {
+    String aux = "";
+    Iterator<Integer> iteradorLista = prediccion.iterator();
+    aux += prediccion.toString();
+    return aux;
+  }
+
+  /**
    * Se muestra la mano actual del jugador
    * @return String
    */
@@ -78,7 +90,7 @@ public class Jugador {
     barajeo.add(tablero.getRonda());
     return baraja;
   }
- 
+
   /**
    * El jugador toma una carta de su mano y la regresa
    * @param indice
