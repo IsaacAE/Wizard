@@ -243,7 +243,7 @@ public class Juego {
     }
   }
 
-<<<<<<< HEAD
+
   /**
    * Metodo para jugar toda una ronda hasta que el ultimo jugador se quede sin cartas
    * @param tablero Representa el tablero en donde se juega la partida
