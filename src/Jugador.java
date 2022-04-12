@@ -15,7 +15,9 @@ public class Jugador {
   Lista<Integer> prediccion = new Lista();
   Lista<Integer> barajeo = new Lista();
   Lista<Lista<Carta>> jugadas = new Lista();
-
+  Lista<Integer> rondasGanadas = new Lista();
+  Lista <Integer> ronda = new Lista();
+  private int contadorTruco = 0;
   //Lista<Cola<Carta>> jugadas = new Lista();
 
   /**
@@ -24,6 +26,14 @@ public class Jugador {
    */
   public Jugador(String nombre) {
     this.nombre = nombre;
+  }
+
+  public void ganoTruco(){
+    contadorTruco++;
+  }
+
+  public void trucosRonda(){
+    rondasGanadas.add(contadorTruco);
   }
 
   /**
@@ -105,6 +115,14 @@ public class Jugador {
   public String toString() {
     //System.out.println(this.mostrarMano());
     return this.nombre;
+  }
+
+  public Lista<Integer> getRondasGanadas() {
+    return this.rondasGanadas;
+  }
+
+  public void setRondasGanadas(Lista<Integer> rondasGanadas) {
+    this.rondasGanadas = rondasGanadas;
   }
 
   public Lista<Carta> getMano() {

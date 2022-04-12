@@ -46,8 +46,8 @@ public class Sistema {
             //tablero.getBarajita().revolver();
             tablero.repartir(juego.getJugadores());
             detMazoTriunfo();
-            apostar(tablero.getRonda());
-            //juego.jugarRonda(tablero);
+            //apostar(tablero.getRonda());
+            juego.jugarRonda(tablero);
 
             
             

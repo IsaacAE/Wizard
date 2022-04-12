@@ -14,7 +14,7 @@ import wizard.src.Tablero;
 
 public class Juego {
 
-  Lista<Lista<Integer>> puntosJugadores = new Lista();
+  //Lista<Lista<Integer>> puntosJugadores = new Lista();
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
@@ -62,6 +62,8 @@ public class Juego {
       System.out.println(aux.mostrarPrediccion());
     }
   }
+
+  //Falta determina quien va a ganar una ronda
 
   public void apuestas(int ronda) {
     escaner = new Scanner(System.in);
@@ -243,8 +245,28 @@ public class Juego {
     while (jugadores.elemInd(numJug).getMano().isEmpty() == false) {
       System.out.println(jugarTurno(tablero).toString());
       // tablero.getMazoGuia().setPalo("nulo");
+      System.out.println("Mandando a llamar ganar truco");
+      ganadorTruco(jugadores.peek());
       tablero.getMazoGuia().setPalo("nulo");
     }
+    System.out.println("Mandando a llamar trucos de ronda");
+    ganadorRonda();
+    
+  }
+
+  public void ganadorTruco(Jugador ganador) {
+    ganador.ganoTruco();
+  }
+
+  public void ganadorRonda() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      aux.trucosRonda();
+      System.out.println("jugador "+ aux.getNombre()+" puntos: "+aux.getRondasGanadas());
+    }
+    
   }
 
   public Lista<Carta> jugarTurno(Tablero tablero) {
@@ -252,7 +274,7 @@ public class Juego {
     Carta auxiliar = new Carta("nulo", "g");
     Lista<Carta> cartasJugadas = new Lista<Carta>();
     int i = 0, j = 0;
-    for (i = 1; i <= jugadores.longi; i++) {
+    for (i = 1; i <= jugadores.size(); i++) {
       System.out.println(tablero.getMazoGuia().getPalo());
       if (i > 1) {
         if (tablero.hayMazoGuia()) {
