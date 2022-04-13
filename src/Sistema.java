@@ -40,7 +40,6 @@ public class Sistema {
       } else if (eleccion == 2) {
         if (validarComienzo()) {
           System.out.println("Comenzando en breves");
-
           iniciarJuego();
           juego.modMaxRondas();
           while (tablero.getRonda() <= juego.getMaxRondas()) {

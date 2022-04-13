@@ -4,10 +4,10 @@
  */
 package wizard.src;
 
+import java.lang.Math;
 //import Estructuras.*;
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
-import java.lang.Math;
 
 public class Jugador {
 
@@ -21,6 +21,10 @@ public class Jugador {
   Lista<Integer> ronda = new Lista();
   int contadorTruco = 0;
   int puntosTotal = 0;
+
+  public int getPuntosTotal(){
+    return this.puntosTotal;
+  }
 
   //Lista<Cola<Carta>> jugadas = new Lista();
 
@@ -42,6 +46,10 @@ public class Jugador {
 
   public void setContadorTruco(int contadorTruco) {
     this.contadorTruco = contadorTruco;
+  }
+
+  public Lista<Lista <Carta>> getJugadas(){
+    return this.jugadas;
   }
 
   public void trucosRonda() {
@@ -171,6 +179,14 @@ public class Jugador {
 
   public void setMano(Lista<Carta> mano) {
     this.mano = mano;
+  }
+
+  public Lista<Integer> getBarajeo() {
+    return this.barajeo;
+  }
+
+  public void setBarajeo(Lista<Integer> barajeo) {
+    this.barajeo = barajeo;
   }
 
   public Lista<Integer> getPrediccion() {

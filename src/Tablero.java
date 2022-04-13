@@ -13,6 +13,7 @@ public class Tablero {
   Carta mazoTriunfo = new Carta("nulo", "o");
   Carta mazoGuia = new Carta("nulo", "o");
   Baraja barajita = new Baraja();
+  Lista<Baraja> barajas = new Lista();
   int ronda = 1;
 
  
@@ -80,6 +81,15 @@ public class Tablero {
 
   public void setBarajita(Baraja barajita) {
     this.barajita = barajita;
+    barajas.add(this.barajita);
+  }
+
+  public Lista<Baraja> getBarajas(){
+    return this.barajas;
+  }
+
+  public void setBarajas(Lista<Baraja> barajas){
+    this.barajas = barajas;
   }
 
   public void pasaRonda(){
