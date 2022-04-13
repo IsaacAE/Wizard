@@ -7,7 +7,6 @@ package wizard.src;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Scanner;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
@@ -18,6 +17,7 @@ public class Juego {
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
+  int maxRondas=0;
   Scanner escaner;
 
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
@@ -29,7 +29,23 @@ public class Juego {
         puntosJugadores.add(jugador);
     }
   }*/
-
+public void modMaxRondas(){
+  int aux = jugadores.size();
+  switch(aux){
+    case 3: 
+    maxRondas=20;
+    break;
+    case 4:
+    maxRondas= 15;
+    break;
+    case 5: 
+    maxRondas=12;
+    break;
+    case 6: 
+    maxRondas=10;
+    break;
+  }
+}
   /**
    * Muestra a los jugadores contenidos en la lista e imprime
    * su mano
@@ -53,6 +69,11 @@ public class Juego {
     System.out.println(jugadores + "\n");
   }
 
+  public int getMaxRondas() {
+    return this.maxRondas;
+  }
+
+  
   public void mostrarPredicciones() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -60,6 +81,26 @@ public class Juego {
       aux = iteradorLista.next();
       System.out.println("Prediccion del jugador " + aux.getNombre());
       System.out.println(aux.mostrarPrediccion());
+    }
+  }
+
+  public void mostrarTrucosGanados() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      System.out.println("El jugador  " + aux.getNombre() + " gano " + aux.getContadorTruco());
+    
+    }
+  }
+
+  public void vaciarTrucosGanados() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux;
+    while (iteradorLista.hasNext()) {
+      aux = iteradorLista.next();
+      aux.setContadorTruco(0);
+    
     }
   }
 
@@ -73,6 +114,7 @@ public class Juego {
     boolean bol = false;
     for (int i = 0; i < jugadores.size(); i++) {
       aux = iteradorLista.next();
+      System.out.println(aux.getNombre() + " tu mano es: "+ aux.mostrarMano());
       System.out.println("Jugador " + aux.getNombre() + " debe apostar");
       do {
         System.out.println("¿Cuantas rondas ganaras? (0 - " + (ronda) + ")");
@@ -211,12 +253,17 @@ public class Juego {
     return this.jugadores;
   }
 
-  public boolean validarJugada(
-    Carta carta,
-    Lista<Carta> cartas,
-    Tablero tablero
-  ) {
-    boolean contiene = true;
+
+  /**
+   * Metodo para verificar que la jugada que quiere realizar el jugador es valida
+   * @param carta Representa la carta que quiere jugarse
+   * @param cartas Representara las cartas en la mano del jugador
+   * @param tablero Representa el tablero en donde se juega la partida
+   * @return boolean
+   */
+  public boolean validarJugada(Carta carta, Lista<Carta> cartas, Tablero tablero){
+    boolean contiene=true;
+  
 
     if (carta.getPalo() == "morado" || carta.getPalo() == "blanco") {
       return true;
@@ -238,19 +285,41 @@ public class Juego {
     }
   }
 
-  public void jugarRonda(Tablero tablero) {
-    int i = 0, j = 0;
-    boolean continua = true;
-    int numJug = jugadores.longi - 1;
-    while (jugadores.elemInd(numJug).getMano().isEmpty() == false) {
-      System.out.println(jugarTurno(tablero).toString());
-      // tablero.getMazoGuia().setPalo("nulo");
-      System.out.println("Mandando a llamar ganar truco");
-      ganadorTruco(jugadores.peek());
-      tablero.getMazoGuia().setPalo("nulo");
+
+  /**
+   * Metodo para jugar toda una ronda hasta que el ultimo jugador se quede sin cartas
+   * @param tablero Representa el tablero en donde se juega la partida
+   */
+public void jugarRonda(Tablero tablero){
+  //Carta mago = new Carta("morado", "W");
+  int i=0, j=0;
+  boolean continua = true;
+  int numJug = jugadores.longi - 1 ;
+modMaxRondas();
+int rondasJug = tablero.getRonda();
+//while(rondasJug<=maxRondas){
+  
+  apuestas(tablero.getRonda());
+  while(jugadores.elemInd(numJug).getMano().isEmpty()==false){
+   // System.out.println(jugarTurno(tablero).toString());
+  Lista<Carta> cartasJugadas= jugarTurno(tablero);
+  
+ System.out.println("Las cartas jugadas fueron: " + cartasJugadas.toString());
+ 
+	System.out.println("Mandando a llamar ganar truco");
+  Jugador ganadorT =ganador(cartasJugadas, tablero);
+    System.out.println("El ganador del truco es: "+ ganadorT.toString());
+    ganadorTruco(ganadorT);
+   
+   tablero.getMazoGuia().setPalo("nulo");
+
     }
-    System.out.println("Mandando a llamar trucos de ronda");
-    ganadorRonda();
+    mostrarTrucosGanados();
+    vaciarTrucosGanados();
+    tablero.pasaRonda();
+  //}
+    //System.out.println("Mandando a llamar trucos de ronda");
+   // ganadorRonda();
     
   }
 
@@ -261,25 +330,36 @@ public class Juego {
   public void ganadorRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
+   
     while (iteradorLista.hasNext()) {
       aux = iteradorLista.next();
       aux.trucosRonda();
       System.out.println("jugador "+ aux.getNombre()+" puntos: "+aux.getRondasGanadas());
     }
+
     
   }
 
-  public Lista<Carta> jugarTurno(Tablero tablero) {
-    Carta aux = new Carta("nulo", "o");
-    Carta auxiliar = new Carta("nulo", "g");
-    Lista<Carta> cartasJugadas = new Lista<Carta>();
-    int i = 0, j = 0;
-    for (i = 1; i <= jugadores.size(); i++) {
+
+/**
+   * Metodo pque sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
+   * @param tablero Representa el tablero en donde se juega la partida
+   * @return Lista<Carta> Representa las cartas jugadas
+   */
+public Lista<Carta> jugarTurno(Tablero tablero){
+  Carta aux = new Carta("nulo", "o");
+  Carta auxiliar = new Carta("nulo", "g");
+  Lista<Carta> cartasJugadas = new Lista<Carta>();
+  int i=0, j=0;
+  System.out.println("El palo triunfo es "+ tablero.getMazoTriunfo().toString());
+    for(i=1; i<=jugadores.longi; i++){
       System.out.println(tablero.getMazoGuia().getPalo());
-      if (i > 1) {
-        if (tablero.hayMazoGuia()) {
-          System.out.println("El palo guía es " + auxiliar.toString());
-        } else {
+      if(i>1){
+        if(tablero.hayMazoGuia()){
+          System.out.println("El palo guía es "+ auxiliar.toString());
+          System.out.println("El palo  es "+ auxiliar.getPalo());
+        }else{
+
           System.out.println("No hay palo guia");
         }
       }
@@ -293,62 +373,134 @@ public class Juego {
       boolean correcto = true;
       System.out.println("Elige una carta para jugar");
 
-      do {
-        correcto = true;
-        try {
-          ind = escan.nextInt();
-
-          if (ind < 1 || ind > jugadores.elemInd(i).getMano().size()) {
-            //ind=0;
-            System.out.println("Eleccion no valida");
-            throw new InputMismatchException();
-          }
-        } catch (InputMismatchException ef) {
-          escan.nextLine();
-          System.out.println(
-            "Intenta de nuevo, debes colocar el indice de la carta"
-          );
-          correcto = false;
-        } catch (NullPointerException eg) {
-          escan.nextLine();
-          System.out.println(
-            "Intenta de nuevo, debes colocar el indice de la carta"
-          );
-          correcto = false;
-        }
-        System.out.println(
-          jugadores.elemInd(i).mostrarMano() +
-          "Mano del jugador " +
-          jugadores.elemInd(i).toString()
-        );
-        if (correcto == true) {
-          aux = jugadores.elemInd(i).jugarCarta(ind);
-        }
-        if (
-          tablero.getMazoGuia().getPalo() == "blanco" ||
-          tablero.getMazoGuia().getPalo() == "morado" ||
-          tablero.getMazoGuia().getPalo() == "nulo"
-        ) {
-          tablero.setMazoGuia(aux);
-          auxiliar = aux;
-        }
-
+      do{
+      correcto=true;
+      try{
+      ind = escan.nextInt();
+      
+      if(ind<1 || ind>jugadores.elemInd(i).getMano().size()){
+       //ind=0;
+        System.out.println("Eleccion no valida");
+        throw new InputMismatchException();
+      }
+    }catch(InputMismatchException ef){
+      escan.nextLine();
+      System.out.println("Intenta de nuevo, debes colocar el indice de la carta");
+      correcto=false;
+    }
+    catch(NullPointerException eg){
+      escan.nextLine();
+      System.out.println("Intenta de nuevo, debes colocar el indice de la carta");
+      correcto=false;
+    }
+     // System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
+    if(correcto==true){
+      aux = jugadores.elemInd(i).jugarCarta(ind);
+    }
+      if(tablero.getMazoGuia().getPalo()=="blanco"||tablero.getMazoGuia().getPalo()=="morado"||tablero.getMazoGuia().getPalo()=="nulo"){
+        tablero.setMazoGuia(aux);
+        auxiliar = aux;
+        
+      }
+      
         //correcto=true;
-        if (correcto == true) {
-          if (
-            validarJugada(aux, jugadores.elemInd(i).getMano(), tablero) == true
-          ) {
-            cartasJugadas.agregaFinal(aux);
-            jugadores.elemInd(i).getMano().delete(aux);
-            System.out.println(jugadores.elemInd(i).mostrarMano());
-          } else {
-            System.out.println("Movimiento invalido");
-            correcto = false;
-          }
+        if(correcto==true){
+      if(validarJugada(aux, jugadores.elemInd(i).getMano(), tablero) == true){
+        cartasJugadas.agregaFinal(aux);
+        jugadores.elemInd(i).getMano().delete(aux);
+        if(jugadores.elemInd(i).getMano().isEmpty()){
+          System.out.println("El jugador "+ jugadores.elemInd(i).toString() + " ya no tiene cartas");
+        }else{
+        System.out.println(jugadores.elemInd(i).mostrarMano()+ "Mano del jugador "  + jugadores.elemInd(i).toString());
         }
-      } while (correcto == false);
+      }else{
+        System.out.println("Movimiento invalido");
+        correcto = false;
+      }
+    }
+    }while(correcto==false);
+      
     }
     //tablero.getMazoGuia().setPalo("nulo");
-    return cartasJugadas;
+  return cartasJugadas;
+}
+
+
+public Jugador ganador(Lista<Carta> cartasJugadas, Tablero tablero){
+  Carta mago = new Carta("morado", "W");
+  int jokers =0;
+  int indDev=0;
+  
+
+ for(int i=1; i<=cartasJugadas.size(); i++){
+   if(cartasJugadas.elemInd(i).getPalo() == "blanco"){
+     jokers++;
+   }
+ }
+ if(jokers==cartasJugadas.size()){
+   return this.jugadores.elemInd(1);
+ }
+
+ for(int i=1; i<=cartasJugadas.size(); i++){
+  if(cartasJugadas.elemInd(i).getPalo() == "morado" ){
+    return this.jugadores.elemInd(i);
   }
+}
+
+ int a =0;
+ int b=0;
+for(int i =1; i<=cartasJugadas.size(); i++){
+  if(cartasJugadas.elemInd(i).getPalo() == tablero.getMazoTriunfo().getPalo()){
+    indDev=i;
+    for(int k=1; k<=cartasJugadas.size(); k++){
+      if(cartasJugadas.elemInd(i).getValor()!="J"){
+        a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
+      }
+      if(cartasJugadas.elemInd(k).getValor()!="J"){
+        b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
+      }
+       if((a < b || (a==0 && b ==0))&&(cartasJugadas.elemInd(k).getPalo()==tablero.getMazoTriunfo().getPalo())){
+         indDev=k;
+       }
+     }
+     return this.jugadores.elemInd(indDev);
+  }
+}
+
+for(int i=1; i<=cartasJugadas.size(); i++){
+if(cartasJugadas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
+  indDev=i;
+  for(int k=1; k<=cartasJugadas.size(); k++){
+    if(cartasJugadas.elemInd(i).getValor()!="J"){
+      a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
+    }
+    if(cartasJugadas.elemInd(k).getValor()!="J"){
+      b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
+    }
+     if((a < b || (a==0 && b==0))&&(cartasJugadas.elemInd(k).getPalo()==tablero.getMazoGuia().getPalo())){
+       indDev=k;
+     }
+   }
+   return this.jugadores.elemInd(indDev);
+}
+}
+  
+/*
+for(int i=1; i<=cartasJugadas.size(); i++){
+for(int k=1; k<=cartasJugadas.size(); k++){
+  if(cartasJugadas.elemInd(i).getValor()!="J"){
+    a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
+  }
+  if(cartasJugadas.elemInd(k).getValor()!="J"){
+    b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
+  }
+   if(a <= b){
+     indDev=k;
+   }
+ }
+ return this.jugadores.elemInd(indDev);
+}*/
+return this.jugadores.elemInd(indDev);
+}
+
 }

@@ -42,13 +42,18 @@ public class Sistema {
             System.out.println("Comenzando en breves");
              
             iniciarJuego();
+            juego.modMaxRondas();
+while(tablero.getRonda()<=juego.getMaxRondas()){
+            
            // tablero.getMazoGuia().setPalo("verde");
             //tablero.getBarajita().revolver();
             tablero.repartir(juego.getJugadores());
+            System.out.println("RONDA: "+ tablero.getRonda());
             detMazoTriunfo();
-            //apostar(tablero.getRonda());
+            
             juego.jugarRonda(tablero);
-
+}
+tablero.pasaRonda();
             
             
             
@@ -162,6 +167,7 @@ public class Sistema {
       
     }else{
       System.out.println("Palo del triunfo" + aux);
+      tablero.setMazoTriunfo(aux);
     }
     
     return aux;
@@ -243,3 +249,4 @@ public class Sistema {
   //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
 
 }
+ 

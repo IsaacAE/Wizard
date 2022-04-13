@@ -13,7 +13,7 @@ public class Tablero {
   Carta mazoTriunfo = new Carta("nulo", "o");
   Carta mazoGuia = new Carta("nulo", "o");
   Baraja barajita = new Baraja();
-  int ronda = 2;
+  int ronda = 1;
 
  
   /**
@@ -46,7 +46,7 @@ public class Tablero {
     return aux;
   }
 
-  public void ganador() {}
+  
 
   public Carta getMazoTriunfo() {
     return this.mazoTriunfo;
@@ -63,10 +63,12 @@ public class Tablero {
   public void setMazoGuia(int ronda) {
     this.ronda = ronda;
   }
-
+ 
   public Baraja getBarajita() {
     return this.barajita;
   }
+
+  
 
   public void setMazoTriunfo(Carta mazoTriunfo) {
     this.mazoTriunfo = mazoTriunfo;
@@ -80,6 +82,13 @@ public class Tablero {
     this.barajita = barajita;
   }
 
+  public void pasaRonda(){
+    this.ronda += 1;
+  }
+/**
+   * Metodo para saber si hay un palo guia valido
+   * @return boolean
+   */
   public boolean hayMazoGuia(){
     if(mazoGuia.getPalo()=="verde" || mazoGuia.getPalo()=="rojo" || mazoGuia.getPalo()=="azul" || mazoGuia.getPalo()=="amarillo"){
       return true;
