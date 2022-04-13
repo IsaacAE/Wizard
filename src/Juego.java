@@ -18,6 +18,7 @@ public class Juego {
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
   int maxRondas = 0;
+  Jugador ganadorAct;
   Scanner escaner;
 
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
@@ -319,6 +320,7 @@ public class Juego {
     mostrarTrucosGanados();
     ganadorRonda();
     puntosRonda();
+    ganadorJuego();
     vaciarTrucosGanados();
     tablero.pasaRonda();
   }
@@ -327,7 +329,49 @@ public class Juego {
     ganador.ganoTruco();
   }
 
-  public void puntosRonda(){
+  public void ganadorJuego() {
+    Lista<Jugador> empates = new Lista();
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    boolean posibleEmpate = false;
+    Jugador aux = iteradorLista.next();
+    Jugador aux2;
+    Jugador auxEmpate = new Jugador("defaut");
+    for (int i = 0; i < jugadores.size() - 1; i++) {
+      aux2 = iteradorLista.next();
+      if (!(aux.getPuntosTotal() > aux2.getPuntosTotal())) {
+        aux = aux2;
+      }
+    }
+    Jugador ganadorActl;
+    //empates.add(aux);
+    iteradorLista = jugadores.iterator();
+    for (int i = 0; i < jugadores.size(); i++) {
+      ganadorActl = iteradorLista.next();
+      if (ganadorActl.getPuntosTotal() == aux.getPuntosTotal()) {
+        empates.add(ganadorActl);
+        posibleEmpate = true;
+      }
+    }
+    if (posibleEmpate) {
+      System.out.println("Ganadores " + empates);
+    } else {
+      System.out.println("El ganador actual es: " + aux.getNombre());
+    }
+    /*if (posibleEmpate) {
+      if (auxEmpate.getPuntosTotal() == aux.getPuntosTotal()) {
+        System.out.println(
+          "Jugador " +
+          auxEmpate.getNombre() +
+          " esta empatado con " +
+          aux.getNombre()
+        );
+      }
+    } else {
+      System.out.println("El ganador actual es: " + aux.getNombre());
+    }*/
+  }
+
+  public void puntosRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     while (iteradorLista.hasNext()) {
       iteradorLista.next().puntosJugador();

@@ -69,17 +69,16 @@ return totalJugadores;
 }
     
     public static void main(String[] args){    
-      /*Sistema sistema = new Sistema();
-      Scanner escaner = new Scanner(System.in);
+      Sistema sistema = new Sistema();
       Juego juego = new Juego();
       Tablero tablero = new Tablero();
-      sistema.iniciar();*/
-      Juego juego = new Juego();
+      sistema.iniciar();
+      /*Juego juego = new Juego();
       Tablero tablero = new Tablero();
       juego.agregarJugadores(new Jugador("Mauricio"));
       juego.agregarJugadores(new Jugador("Ruben"));
       juego.agregarJugadores(new Jugador("Joel"));
       Archivo ob = new Archivo();
-      ob.Historial(juego, tablero);
+      ob.Historial(juego, tablero);*/
     }
 }

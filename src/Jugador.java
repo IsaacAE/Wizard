@@ -81,7 +81,7 @@ public class Jugador {
         "Jugador " + this.getNombre() + " puntos: " + iteradorLista.next()
       );
     }*/
-    System.out.println("Tiene un total de " + puntosTotal);
+    System.out.println(this.getNombre()+" tiene un total de " + puntosTotal);
   }
 
   /**

@@ -15,11 +15,23 @@ public class Archivo {
 
   final String fileName = "historial.txt";
 
+  /**
+   * Metodo para crear nuestro archivo e imprimir en el los datos que 
+   * queremos guardar a parir del obejto juego y tablero
+   * @param Juego
+   * @param Tablero
+   */
   public void Historial(Juego juego, Tablero tablero) {
     crearArchivo(fileName);
     pintarArchivo(fileName, juego, tablero);
   }
 
+  /**
+   * Metodo para crear un archivo, en caso de que ya exista este 
+   * se remplazara por uno nuevo, el argumento es el nombre del 
+   * archivo
+   * @param String
+   */
   public void crearArchivo(String fileName) {
     try {
       File myObj = new File(fileName);
@@ -37,6 +49,14 @@ public class Archivo {
     }
   }
 
+  /**
+   * Metodo para pintar sobre el archivo todo lo que necesitamos
+   * a partir del objeto juego y tablero en el archivo con nombre
+   * fileName
+   * @param fileName
+   * @param Juego
+   * @param Tablero
+   */
   public void pintarArchivo(String fileName, Juego juego, Tablero tablero) {
     try {
       Iterator<Jugador> iteradorLista = juego.getJugadores().iterator();
