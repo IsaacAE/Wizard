@@ -149,4 +149,9 @@ public class Baraja {
   public void setPalo(String palo) {
     this.palo = palo;
   }
+
+  public Carta cartaIndex(int index){
+    return this.mazoCartas[index];
+  }
+  
 }

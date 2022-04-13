@@ -571,14 +571,38 @@ public class Lista<T> implements Collection<T> {
   }
 
   //
-  public T eliminarIndice(int indice){
-    int numAux=1;
+  public T eliminarIndice(int indice) {
+    int numAux = 1;
     Nodo aux = this.cabeza;
-    while(numAux<indice){
-      aux= aux.siguiente;
+    while (numAux < indice) {
+      aux = aux.siguiente;
       numAux++;
     }
     delete(aux.elemento);
     return aux.elemento;
+  }
+
+  public T elemInd(int indice) {
+    int numAux = 1;
+    Nodo aux = this.cabeza;
+    while (numAux < indice) {
+      aux = aux.siguiente;
+      numAux++;
+    }
+    return aux.elemento;
+  }
+
+  public T peek() {
+    if (isEmpty()) {
+      throw new NoSuchElementException("");
+    }
+    return cabeza.elemento;
+  }
+
+  public T peekInverse() {
+    if (isEmpty()) {
+      throw new NoSuchElementException("");
+    }
+    return ultimo.elemento;
   }
 }
