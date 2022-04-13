@@ -34,35 +34,29 @@ public class Sistema {
         escaner.next();
         //escaner.next();
       }
-        if (eleccion == 1) {
-          solicitarDatos();
-          valido = false;
-        } else if (eleccion == 2) {
-          if (validarComienzo()) {
-            System.out.println("Comenzando en breves");
-             
-            iniciarJuego();
-            juego.modMaxRondas();
-while(tablero.getRonda()<=juego.getMaxRondas()){
-            
-           // tablero.getMazoGuia().setPalo("verde");
+      if (eleccion == 1) {
+        solicitarDatos();
+        valido = false;
+      } else if (eleccion == 2) {
+        if (validarComienzo()) {
+          System.out.println("Comenzando en breves");
+
+          iniciarJuego();
+          juego.modMaxRondas();
+          while (tablero.getRonda() <= juego.getMaxRondas()) {
+            // tablero.getMazoGuia().setPalo("verde");
             //tablero.getBarajita().revolver();
             tablero.repartir(juego.getJugadores());
-            System.out.println("RONDA: "+ tablero.getRonda());
+            System.out.println("RONDA: " + tablero.getRonda());
             detMazoTriunfo();
-            
-            juego.jugarRonda(tablero);
-}
-tablero.pasaRonda();
-            
-            
-            
-          }
-        }else if (eleccion == 3) {
-          break;
-        }
 
-     
+            juego.jugarRonda(tablero);
+          }
+          tablero.pasaRonda();
+        }
+      } else if (eleccion == 3) {
+        break;
+      }
       //System.out.println(valido);
     } while (valido == false);
   }
@@ -137,7 +131,7 @@ tablero.pasaRonda();
   }
 
   /**
-   * manda a llamar al metodo barajear jugador y la baraja que regresa la 
+   * manda a llamar al metodo barajear jugador y la baraja que regresa la
    * guardamos en barajear
    */
   public void barajear() {
@@ -147,29 +141,33 @@ tablero.pasaRonda();
   /**
    * Determina el mazo del triunfo, va a sacar una carta ya revuelta de la baraja,
    * si esta no es joker ni wizard se imprime, si es joker se juega sin palo del triunfo,
-   * si es wizard manda a llamar el metodo defPaloTriundoWizard de la clase juego que 
+   * si es wizard manda a llamar el metodo defPaloTriundoWizard de la clase juego que
    * regresa un tablero
-   * 
+   *
    * @return Carta
    */
   public Carta detMazoTriunfo() {
     //Carta aux = tablero.sacarPaloTrinfo();
     Carta aux = tablero.barajita.sacarCarta();
-    if(aux.getPalo().equals("blanco")){
+    if (aux.getPalo().equals("blanco")) {
       System.out.println("Palo del triunfo" + aux);
       System.out.println("se juega sin palo del triunfo");
-    }else if(aux.getPalo().equals("morado")){
+    } else if (aux.getPalo().equals("morado")) {
       System.out.println("Palo del triunfo" + aux);
       System.out.println("El palo lo elige quien barajeo");
       System.out.println(juego.barajeadores.peek());
       tablero = juego.defPaloTriunfoWizard(tablero);
-      System.out.println("palo del triunfo "+tablero.getMazoTriunfo()+" palo -> "+tablero.getMazoTriunfo().getPalo());
-      
-    }else{
+      System.out.println(
+        "palo del triunfo " +
+        tablero.getMazoTriunfo() +
+        " palo -> " +
+        tablero.getMazoTriunfo().getPalo()
+      );
+    } else {
       System.out.println("Palo del triunfo" + aux);
       tablero.setMazoTriunfo(aux);
     }
-    
+
     return aux;
     //Carta ojo = new Carta ("blanco", "J");
     //tablero.setMazoTriunfo(ojo);
@@ -249,4 +247,3 @@ tablero.pasaRonda();
   //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
 
 }
- 

@@ -7,6 +7,7 @@ package wizard.src;
 //import Estructuras.*;
 import java.util.Iterator;
 import wizard.src.Estructuras.*;
+import java.lang.Math;
 
 public class Jugador {
 
@@ -15,9 +16,12 @@ public class Jugador {
   Lista<Integer> prediccion = new Lista();
   Lista<Integer> barajeo = new Lista();
   Lista<Lista<Carta>> jugadas = new Lista();
-  Lista<Integer> rondasGanadas = new Lista();
-  Lista <Integer> ronda = new Lista();
-  private int contadorTruco = 0;
+  Lista<Integer> RondaPuntos = new Lista();
+  Lista<Integer> puntos = new Lista();
+  Lista<Integer> ronda = new Lista();
+  int contadorTruco = 0;
+  int puntosTotal = 0;
+
   //Lista<Cola<Carta>> jugadas = new Lista();
 
   /**
@@ -28,21 +32,48 @@ public class Jugador {
     this.nombre = nombre;
   }
 
-  public void ganoTruco(){
-    contadorTruco++;
+  public void ganoTruco() {
+    contadorTruco += 1;
   }
 
-  public int getContadorTruco(){
+  public int getContadorTruco() {
     return this.contadorTruco;
   }
 
-  public void setContadorTruco(int contadorTruco){
-     this.contadorTruco=contadorTruco;
+  public void setContadorTruco(int contadorTruco) {
+    this.contadorTruco = contadorTruco;
   }
 
+  public void trucosRonda() {
+    RondaPuntos.add(contadorTruco);
+  }
 
-  public void trucosRonda(){
-    rondasGanadas.add(contadorTruco);
+  public void puntosJugador() {
+    //Iterator<Integer> iteradorPre = prediccion.iterator();
+    //Iterator<Integer> iteradorPun = RondaPuntos.iterator();
+    Integer aux1 = prediccion.peekInverse();
+    Integer aux2 = RondaPuntos.peekInverse();
+    Integer aux3 = 0;
+    if (aux1 == aux2) {
+      aux3 = (20 + (10 * aux1));
+      puntosTotal += aux3;
+      puntos.add(aux3);
+    } else {
+      aux3 = -10 * Math.abs(aux1 - aux2);
+      puntosTotal += aux3;
+      puntos.add(aux3);
+    }
+    mostrarPuntos();
+  }
+
+  public void mostrarPuntos() {
+    /*Iterator<Integer> iteradorLista = puntos.iterator();
+    while (iteradorLista.hasNext()) {
+      System.out.println(
+        "Jugador " + this.getNombre() + " puntos: " + iteradorLista.next()
+      );
+    }*/
+    System.out.println("Tiene un total de " + puntosTotal);
   }
 
   /**
@@ -126,12 +157,12 @@ public class Jugador {
     return this.nombre;
   }
 
-  public Lista<Integer> getRondasGanadas() {
-    return this.rondasGanadas;
+  public Lista<Integer> getRondaPuntos() {
+    return this.RondaPuntos;
   }
 
-  public void setRondasGanadas(Lista<Integer> rondasGanadas) {
-    this.rondasGanadas = rondasGanadas;
+  public void setRondaPuntos(Lista<Integer> rondasGanadas) {
+    this.RondaPuntos = RondaPuntos;
   }
 
   public Lista<Carta> getMano() {
