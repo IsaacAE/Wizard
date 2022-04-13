@@ -36,7 +36,7 @@ public class Tablero {
         reparticion = new Lista();
       }
     }
-
+ //  this.barajita = new Baraja();
     return jugadores;
   }
 

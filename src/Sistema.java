@@ -44,14 +44,17 @@ public class Sistema {
             iniciarJuego();
             juego.modMaxRondas();
 while(tablero.getRonda()<=juego.getMaxRondas()){
-            
+           Baraja barajita = new Baraja();
+           tablero.getBarajita().revolver();
            // tablero.getMazoGuia().setPalo("verde");
             //tablero.getBarajita().revolver();
             tablero.repartir(juego.getJugadores());
             System.out.println("RONDA: "+ tablero.getRonda());
+            System.out.println("Barajea "+ juego.getJugadores().peek());
             detMazoTriunfo();
             
             juego.jugarRonda(tablero);
+           tablero.setBarajita(barajita);
 }
 tablero.pasaRonda();
             

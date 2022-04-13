@@ -29,6 +29,16 @@ public class Juego {
         puntosJugadores.add(jugador);
     }
   }*/
+
+  public void cambiarBarajeadores(Jugador jugadorBaj){
+    while(jugadores.peek()!=jugadorBaj){
+      Jugador aux = jugadores.peek();
+      jugadores.delete(aux);
+      jugadores.agregaFinal(aux);
+    }
+  }
+
+
 public void modMaxRondas(){
   int aux = jugadores.size();
   switch(aux){
@@ -291,36 +301,26 @@ public void modMaxRondas(){
    * @param tablero Representa el tablero en donde se juega la partida
    */
 public void jugarRonda(Tablero tablero){
-  //Carta mago = new Carta("morado", "W");
   int i=0, j=0;
   boolean continua = true;
   int numJug = jugadores.longi - 1 ;
 modMaxRondas();
 int rondasJug = tablero.getRonda();
-//while(rondasJug<=maxRondas){
-  
   apuestas(tablero.getRonda());
   while(jugadores.elemInd(numJug).getMano().isEmpty()==false){
-   // System.out.println(jugarTurno(tablero).toString());
   Lista<Carta> cartasJugadas= jugarTurno(tablero);
-  
  System.out.println("Las cartas jugadas fueron: " + cartasJugadas.toString());
- 
 	System.out.println("Mandando a llamar ganar truco");
+  // ganadorT = new Jugador("ALAN");
   Jugador ganadorT =ganador(cartasJugadas, tablero);
     System.out.println("El ganador del truco es: "+ ganadorT.toString());
     ganadorTruco(ganadorT);
-   
+    cambiarBarajeadores(ganadorT);
    tablero.getMazoGuia().setPalo("nulo");
-
     }
     mostrarTrucosGanados();
     vaciarTrucosGanados();
     tablero.pasaRonda();
-  //}
-    //System.out.println("Mandando a llamar trucos de ronda");
-   // ganadorRonda();
-    
   }
 
   public void ganadorTruco(Jugador ganador) {
@@ -363,11 +363,10 @@ public Lista<Carta> jugarTurno(Tablero tablero){
           System.out.println("No hay palo guia");
         }
       }
-      System.out.println(
-        jugadores.elemInd(i).mostrarMano() +
-        "Mano del jugador " +
-        jugadores.elemInd(i).toString()
-      );
+       // System.out.println("El palo triunfo es "+ tablero.getMazoTriunfo().toString());
+    for(i=1; i<=jugadores.longi; i++){
+        
+      System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador " +jugadores.elemInd(i).toString() );
       Scanner escan = new Scanner(System.in);
       int ind = 0;
       boolean correcto = true;
@@ -422,7 +421,10 @@ public Lista<Carta> jugarTurno(Tablero tablero){
       
     }
     //tablero.getMazoGuia().setPalo("nulo");
+ // }
+    }
   return cartasJugadas;
+    
 }
 
 
@@ -449,6 +451,7 @@ public Jugador ganador(Lista<Carta> cartasJugadas, Tablero tablero){
 
  int a =0;
  int b=0;
+ int auxiliar=0;
 for(int i =1; i<=cartasJugadas.size(); i++){
   if(cartasJugadas.elemInd(i).getPalo() == tablero.getMazoTriunfo().getPalo()){
     indDev=i;
@@ -460,12 +463,18 @@ for(int i =1; i<=cartasJugadas.size(); i++){
         b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
       }
        if((a < b || (a==0 && b ==0))&&(cartasJugadas.elemInd(k).getPalo()==tablero.getMazoTriunfo().getPalo())){
-         indDev=k;
+         if(indDev==0){
+        indDev=k;
+         }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+          indDev=k;
+         }
        }
      }
      return this.jugadores.elemInd(indDev);
   }
+  //return this.jugadores.elemInd(indDev);
 }
+
 
 for(int i=1; i<=cartasJugadas.size(); i++){
 if(cartasJugadas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
@@ -478,7 +487,11 @@ if(cartasJugadas.elemInd(i).getPalo() == tablero.getMazoGuia().getPalo()){
       b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
     }
      if((a < b || (a==0 && b==0))&&(cartasJugadas.elemInd(k).getPalo()==tablero.getMazoGuia().getPalo())){
-       indDev=k;
+      if(indDev==0){
+        indDev=k;
+         }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+          indDev=k;
+         }
      }
    }
    return this.jugadores.elemInd(indDev);
