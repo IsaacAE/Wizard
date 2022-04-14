@@ -532,12 +532,12 @@ public class Juego {
           }
           if (
             (a < b || (a == 0 && b == 0)) &&
-            (
-              cartasJugadas.elemInd(k).getPalo() ==
-              tablero.getMazoTriunfo().getPalo()
-            )
-          ) {
-            indDev = k;
+            ( cartasJugadas.elemInd(k).getPalo() ==  tablero.getMazoTriunfo().getPalo()  )  ) {
+              if(indDev==0){
+                indDev=k;
+                 }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+                  indDev=k;
+                 }
           }
         }
         return this.jugadores.elemInd(indDev);
@@ -563,28 +563,17 @@ public class Juego {
               tablero.getMazoGuia().getPalo()
             )
           ) {
-            indDev = k;
+            if(indDev==0){
+              indDev=k;
+               }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+                indDev=k;
+               }
           }
         }
         return this.jugadores.elemInd(indDev);
       }
     }
 
-    /*
-for(int i=1; i<=cartasJugadas.size(); i++){
-for(int k=1; k<=cartasJugadas.size(); k++){
-  if(cartasJugadas.elemInd(i).getValor()!="J"){
-    a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
-  }
-  if(cartasJugadas.elemInd(k).getValor()!="J"){
-    b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
-  }
-   if(a <= b){
-     indDev=k;
-   }
- }
- return this.jugadores.elemInd(indDev);
-}*/
     return this.jugadores.elemInd(indDev);
   }
 }
