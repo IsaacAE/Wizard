@@ -76,6 +76,12 @@ public class Archivo {
         "\nSe jugo con las siguientes barajas (respectivamente) : \n" +
         tablero.getBarajas()
       );
+      if(juego.getPosibleEmpate()){
+        myWriter.write("\n Ganadores: \n "+juego.getEmpates());
+      }else{
+        myWriter.write("\n Ganador: "+juego.getGanador());
+      }
+      
       myWriter.close();
     } catch (IOException e) {
       System.out.println("ERROR 404");

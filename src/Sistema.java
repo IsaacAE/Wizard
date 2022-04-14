@@ -31,6 +31,7 @@ public class Sistema {
     System.out.println("Bienvenido a wizard");
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- \n");
     escaner = new Scanner(System.in);
+    int contador = 1;
     do {
       valido = true;
       int eleccion = 0;
@@ -44,7 +45,12 @@ public class Sistema {
         //escaner.next();
       }
       if (eleccion == 1) {
-        solicitarDatos();
+        if(contador <= 6){
+          solicitarDatos();
+          contador++;
+        }else{
+          System.out.println("Ya se registro el numero maximo");
+        }
         valido = false;
       } else if (eleccion == 2) {
         if (validarComienzo()) {
@@ -62,7 +68,7 @@ public class Sistema {
             tablero.repartir(juego.getJugadores());
             System.out.println("RONDA: " + tablero.getRonda());
             detMazoTriunfo();
-
+            System.out.println("Mostando baraja "+tablero.getBarajita());
             juego.jugarRonda(tablero);
             for(int i=1; i<=juego.getJugadores().size(); i++){
               System.out.println(juego.getJugadores().elemInd(i).getJugadas().toString());
@@ -157,6 +163,7 @@ PrintStream ps = new PrintStream(os);
     } while (valido == false);
     juego.jugadores.add(new Jugador(nombre));
     System.out.println("Jugador agregado exitosamente");
+    System.out.println("Jugadores registrados: "+juego.jugadores.size());
   }
 
   /**
