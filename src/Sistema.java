@@ -54,7 +54,7 @@ public class Sistema {
             tablero.repartir(juego.getJugadores());
             System.out.println("RONDA: " + tablero.getRonda());
             detMazoTriunfo();
-
+            System.out.println("Mostando baraja "+tablero.getBarajita());
             juego.jugarRonda(tablero);
           }
           tablero.pasaRonda();
