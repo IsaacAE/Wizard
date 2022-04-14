@@ -14,7 +14,8 @@ import wizard.src.Tablero;
 
 public class Juego {
 
-  //Lista<Lista<Integer>> puntosJugadores = new Lista();
+  
+  //Atributos de la clase
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
@@ -39,6 +40,9 @@ public class Juego {
     return this.ganador;
   }
 
+   /**
+ * Metodo constructor que determina el maximo de rondas segun el numero de jugadores  
+ */
   public void modMaxRondas() {
     int aux = jugadores.size();
     switch (aux) {
@@ -84,6 +88,9 @@ public class Juego {
     return this.maxRondas;
   }
 
+   /**
+ * Metodo constructor que imprime las predicciones realizadas por los jugadores
+ */
   public void mostrarPredicciones() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -94,6 +101,9 @@ public class Juego {
     }
   }
 
+   /**
+ * Metodo constructor que imrpime el numero de trucos ganados por cada jugador en la ronda
+ */
   public void mostrarTrucosGanados() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -105,6 +115,9 @@ public class Juego {
     }
   }
 
+   /**
+ * Metodo constructor que vuelve 0 el atributo contadorTrucos de todos los jugadores
+ */
   public void vaciarTrucosGanados() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -114,8 +127,11 @@ public class Juego {
     }
   }
 
-  //Falta determina quien va a ganar una ronda
-
+  
+ /**
+ * Metodo que solicita cuantas apuestas desea hacer el jugador y valida los datos ingresados
+ * @param ronda Ronda en la que va el juego
+ */
   public void apuestas(int ronda) {
     escaner = new Scanner(System.in);
     Iterator<Jugador> iteradorLista = jugadores.iterator();
@@ -170,7 +186,7 @@ public class Juego {
       }
     }
     return null;
-    //return jugadores.indexOf(nombre);
+    
   }
 
   /**
@@ -342,10 +358,17 @@ public class Juego {
     tablero.pasaRonda();
   }
 
+   /**
+ * Metodo que aumenta el atributo contadorTruco en 1 del ganador
+ * @param palo Palo de la carta
+ */
   public void ganadorTruco(Jugador ganador) {
     ganador.ganoTruco();
   }
-
+ 
+  /**
+ * Metodo que determina el gandor o ganadores de la partida
+ */
   public void ganadorJuego() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux = iteradorLista.next();
@@ -374,6 +397,9 @@ public class Juego {
     }
   }
 
+  /**
+ * Metodo que determina cuantos puntos tendra el jugador
+ */
   public void puntosRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     while (iteradorLista.hasNext()) {
@@ -381,6 +407,9 @@ public class Juego {
     }
   }
 
+  /**
+ * Metodo que aumenta el atributo trucosRonda segun los trucos ganados
+ */
   public void ganadorRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     while (iteradorLista.hasNext()) {
@@ -389,7 +418,7 @@ public class Juego {
   }
 
   /**
-   * Metodo pque sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
+   * Metodo que sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
    * @param tablero Representa el tablero en donde se juega la partida
    * @return Lista<Carta> Representa las cartas jugadas
    */
@@ -489,6 +518,11 @@ public class Juego {
     return cartasJugadas;
   }
 
+  /**
+ * Metodo para determinar quien es el ganador del truco
+ * @param cartasJugadas Lista de cartas jugadas en la ronda
+ * @param tablero Tablero en el que se juega la partida
+ */
   public Jugador ganador(Lista<Carta> cartasJugadas, Tablero tablero) {
     Carta mago = new Carta("morado", "W");
     int jokers = 0;
@@ -525,12 +559,12 @@ public class Juego {
           }
           if (
             (a < b || (a == 0 && b == 0)) &&
-            (
-              cartasJugadas.elemInd(k).getPalo() ==
-              tablero.getMazoTriunfo().getPalo()
-            )
-          ) {
-            indDev = k;
+            ( cartasJugadas.elemInd(k).getPalo() ==  tablero.getMazoTriunfo().getPalo()  )  ) {
+              if(indDev==0){
+                indDev=k;
+                 }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+                  indDev=k;
+                 }
           }
         }
         return this.jugadores.elemInd(indDev);
@@ -556,12 +590,17 @@ public class Juego {
               tablero.getMazoGuia().getPalo()
             )
           ) {
-            indDev = k;
+            if(indDev==0){
+              indDev=k;
+               }else if(Integer.valueOf(cartasJugadas.elemInd(indDev).getValor())<Integer.valueOf(cartasJugadas.elemInd(k).getValor())){
+                indDev=k;
+               }
           }
         }
         return this.jugadores.elemInd(indDev);
       }
     }
+
     return this.jugadores.elemInd(indDev);
   }
 }

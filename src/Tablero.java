@@ -15,7 +15,7 @@ public class Tablero {
   Baraja barajita = new Baraja();
   Lista<Baraja> barajas = new Lista();
   int ronda = 1;
-
+ 
  
   /**
    * Reparte cartas a cada jugador contenido en la lista jugadores
@@ -41,6 +41,10 @@ public class Tablero {
     return jugadores;
   }
 
+   /**
+ * Metodo que nos da una carta para que sea el valor del atibuto mazoTriunfo
+ * @return Carta
+ */
   public Carta sacarPaloTrinfo() {
     Carta aux = this.getBarajita().sacarCarta();
     this.setMazoTriunfo(aux);
@@ -92,9 +96,14 @@ public class Tablero {
     this.barajas = barajas;
   }
 
+   /**
+ * Metodo que aumenta en 1 el valor del atributo ronda
+ * @param palo Palo de la carta
+ */
   public void pasaRonda(){
     this.ronda += 1;
   }
+  
 /**
    * Metodo para saber si hay un palo guia valido
    * @return boolean

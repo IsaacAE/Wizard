@@ -26,6 +26,9 @@ public class Sistema {
   // ob.Historial(juego, tablero);
   boolean valido = false;
 
+  /**
+ * Metodo que inicia el juego de Wizard y termina al acabar las rondas o cuando el usuario decida
+ */
   public void iniciar() {
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
     System.out.println("Bienvenido a wizard");
@@ -107,6 +110,10 @@ public class Sistema {
     } while (valido == false);
   }
 
+  /**
+ * Metodo que solicita a los usuarios que apuesten segun la ronda
+ * @param ronda Ronda del juego
+ */
   public void apostar(int ronda) {
     juego.apuestas(ronda);
   }
@@ -122,6 +129,9 @@ public class Sistema {
     //break;
   }
 
+  /**
+ * Metodo que valida si se puede comenzar el juego o no
+ */
   private boolean validarComienzo() {
     int jugadoresN = juego.getJugadores().size();
     if (jugadoresN >= 3 && jugadoresN <= 6) {
@@ -133,6 +143,9 @@ public class Sistema {
     }
   }
 
+  /**
+ * Metodo que solicita los datos a los usuarios
+ */
   private void solicitarDatos() {
     escaner = new Scanner(System.in);
     valido = false;
@@ -216,81 +229,7 @@ public class Sistema {
     }
 
     return aux;
-    //Carta ojo = new Carta ("blanco", "J");
-    //tablero.setMazoTriunfo(ojo);
-
-    /*tablero.setMazoTriunfo(tablero.getBarajita().cartaIndex(0));
-    if (
-      tablero.getMazoTriunfo().getPalo() == "blanco" ||
-      tablero.getMazoTriunfo().getPalo() == "morado"
-    ) {
-      do {
-        valido = true;
-        int eleccionPalo = 0;
-        Carta paloT = new Carta("rojo", "*");
-        System.out.println(
-          "Elige el palo del mazo guia, puedes elegir entre: \n1. rojo \n2. azul \n3. verde \n4. amarillo"
-        );
-        try {
-          eleccionPalo = escaner.nextInt();
-        } catch (InputMismatchException et) {
-          valido = false;
-          // System.out.println("ERROR 404");
-          escaner.next();
-          //escaner.next();
-        }
-        switch (eleccionPalo) {
-          case 1:
->>>>>>> e34f795b70451f8f2c7e511a3125c8f3481bc4a2
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 2:
-            paloT.setPalo("azul");
-            paloT.setValor("||");
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 3:
-            paloT.setPalo("verde");
-            paloT.setValor("<>");
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 4:
-            paloT.setPalo("amarillo");
-            paloT.setValor("#");
-            tablero.setMazoTriunfo(paloT);
-<<<<<<< HEAD
-            break; 
-
-            default:
-
-            valido=false;
-            break;
-
-          }
-        }while(valido==false);
-
-        //System.out.println("Funciona");
-      }
-      tablero.barajita.getMazoCartas()[0]=null;
-      return tablero.getMazoTriunfo();
-=======
-            break;
-          default:
-            valido = false;
-            break;
-        }
-      } while (valido == false);
-      //System.out.println("Funciona");
-    }
-    tablero.barajita.getMazoCartas()[0] = null;
-    return tablero.getMazoTriunfo();*/
-
+   
   }
-  //Baraja barajaP = tablero.getBarajita();
-  //Jugador jugadorP = juego.jugadores.peek();
-  //Baraja barajaP = jugadorP.barajear(tablero.getBarajita());
-  //barajaP.cartaInd(0);
-  //tablero.setMazoTriunfo(barajaP.cartaInd(0));
-  //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
 
 }
