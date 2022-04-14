@@ -4,17 +4,17 @@
  */
 package wizard.src;
 
-import java.util.InputMismatchException;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-//import javax.lang.model.util.ElementScanner14;
-//import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-import wizard.src.Estructuras.*;
-import wizard.Archivo;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.Scanner;
+import wizard.Archivo;
+//import javax.lang.model.util.ElementScanner14;
+//import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+import wizard.src.Estructuras.*;
 
 public class Sistema {
 
@@ -22,8 +22,8 @@ public class Sistema {
   Juego juego = new Juego();
   Tablero tablero = new Tablero();
   Archivo ob = new Archivo();
- 
-     // ob.Historial(juego, tablero);
+
+  // ob.Historial(juego, tablero);
   boolean valido = false;
 
   public void iniciar() {
@@ -45,10 +45,10 @@ public class Sistema {
         //escaner.next();
       }
       if (eleccion == 1) {
-        if(contador <= 6){
+        if (contador <= 6) {
           solicitarDatos();
           contador++;
-        }else{
+        } else {
           System.out.println("Ya se registro el numero maximo");
         }
         valido = false;
@@ -57,10 +57,9 @@ public class Sistema {
           System.out.println("Comenzando en breves");
           iniciarJuego();
           juego.modMaxRondas();
-          int dec=0;
+          int dec = 0;
           while (tablero.getRonda() <= juego.getMaxRondas()) {
-            
-            if(dec==1){
+            if (dec == 1) {
               break;
             }
             // tablero.getMazoGuia().setPalo("verde");
@@ -68,45 +67,36 @@ public class Sistema {
             tablero.repartir(juego.getJugadores());
             System.out.println("RONDA: " + tablero.getRonda());
             detMazoTriunfo();
-            System.out.println("Mostando baraja "+tablero.getBarajita());
+            //System.out.println("Mostando baraja "+tablero.getBarajita());
             juego.jugarRonda(tablero);
-            for(int i=1; i<=juego.getJugadores().size(); i++){
-              System.out.println(juego.getJugadores().elemInd(i).getJugadas().toString());
-            }
-          
-      System.out.println("\n¿Desea terminar el juego?\n1.SI\n2.NO");
-      boolean bobo= false;
-    
-      do{
-        bobo=false;
-      try{
-        ;
-       dec = escaner.nextInt();
-      }catch(InputMismatchException ed){
-        escaner.nextLine();
-        System.out.println("Debe elegir entre la opcion 1 o 2 colocando el numero correspondiente");
+            //Recorrer con un iterador
+            /*for(int i=1; i<=juego.getJugadores().size(); i++){
+              System.out.println(juego.getJugadores().elemInd(i+1).getJugadas().toString());
+            }*/
 
-      }
-      if(dec == 2){
-        System.out.println("Sigamos entonces");
-        bobo=false;
-      }else if(dec==1){
-     ob.Historial(this.juego, this.tablero);
-     /*try{
-     FileOutputStream os = new FileOutputStream("historial.txt");
-PrintStream ps = new PrintStream(os);
-//ps.println("prueba de impresión realizada");
-     }catch(FileNotFoundException efe){
-       System.out.println("ALGO SALIO MAL");
-     }*/
-      break;
-      
-      
-      }else{
-        System.out.println("Eleccion no valida");
-        bobo=true;
-      }
-    }while(bobo==true);
+            System.out.println("\n¿Desea terminar el juego?\n1.SI\n2.NO");
+            boolean bobo = false;
+
+            do {
+              bobo = false;
+              try {
+                dec = escaner.nextInt();
+              } catch (InputMismatchException ed) {
+                escaner.nextLine();
+                System.out.println(
+                  "Debe elegir entre la opcion 1 o 2 colocando el numero correspondiente"
+                );
+              }
+              if (dec == 2) {
+                System.out.println("Sigamos entonces");
+                bobo = false;
+              } else if (dec == 1) {
+                break;
+              } else {
+                System.out.println("Eleccion no valida");
+                bobo = true;
+              }
+            } while (bobo == true);
           }
           tablero.pasaRonda();
         }
@@ -155,7 +145,7 @@ PrintStream ps = new PrintStream(os);
         if (!validarNombre(nombre)) {
           System.out.println("Ese nombre ya esta registrado");
           throw new InputMismatchException();
-        } 
+        }
       } catch (InputMismatchException et) {
         valido = false;
         //escaner.next();
@@ -163,7 +153,7 @@ PrintStream ps = new PrintStream(os);
     } while (valido == false);
     juego.jugadores.add(new Jugador(nombre));
     System.out.println("Jugador agregado exitosamente");
-    System.out.println("Jugadores registrados: "+juego.jugadores.size());
+    System.out.println("Jugadores registrados: " + juego.jugadores.size());
   }
 
   /**

@@ -7,11 +7,10 @@ package wizard.src;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
+import wizard.Archivo;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
-import wizard.Archivo;
-
 
 public class Juego {
 
@@ -26,16 +25,20 @@ public class Juego {
   Jugador ganador;
   Archivo ob = new Archivo();
   Scanner escaner;
+  Lista<Jugador> jugadores2 = new Lista();
 
-  public boolean getPosibleEmpate(){
+  public boolean getPosibleEmpate() {
     return this.posibleEmpate;
   }
-  public Lista<Jugador> getEmpates(){
+
+  public Lista<Jugador> getEmpates() {
     return this.empates;
   }
-  public Jugador getGanador(){
+
+  public Jugador getGanador() {
     return this.ganador;
   }
+
   public void modMaxRondas() {
     int aux = jugadores.size();
     switch (aux) {
@@ -302,7 +305,7 @@ public class Juego {
     //Carta mago = new Carta("morado", "W");
     int i = 0, j = 0;
     boolean continua = true;
-    int numJug = jugadores.longi - 1;
+    int numJug = jugadores.size()-1;
     modMaxRondas();
     int rondasJug = tablero.getRonda();
     //while(rondasJug<=maxRondas){
@@ -322,13 +325,19 @@ public class Juego {
       //ganadorTruco(ganadorT);
       ganadorTruco(buscarJugador(ganadorT.getNombre()));
       tablero.getMazoGuia().setPalo("nulo");
-      
-      
+    }
+    Iterator<Jugador> iteratorLista = jugadores2.iterator();
+    while (iteratorLista.hasNext()) {
+      System.out.println(
+        "Lista jugadas clase juego -->" + iteratorLista.next().getJugadas()
+      );
     }
     mostrarTrucosGanados();
     ganadorRonda();
     puntosRonda();
     ganadorJuego();
+    Archivo obj = new Archivo();
+    obj.Historial(this, tablero);
     vaciarTrucosGanados();
     tablero.pasaRonda();
   }
@@ -336,7 +345,7 @@ public class Juego {
   public void ganadorTruco(Jugador ganador) {
     ganador.ganoTruco();
   }
- 
+
   public void ganadorJuego() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux = iteradorLista.next();
@@ -389,12 +398,11 @@ public class Juego {
     Carta auxiliar = new Carta("nulo", "g");
     Lista<Carta> cartasJugadas = new Lista<Carta>();
     int i = 0, j = 0;
-   
     for (i = 1; i <= jugadores.longi; i++) {
-    //  System.out.println(tablero.getMazoGuia().getPalo());
-    System.out.println(
-      "El palo triunfo es " + tablero.getMazoTriunfo().toString()
-    );
+      //  System.out.println(tablero.getMazoGuia().getPalo());
+      System.out.println(
+        "El palo triunfo es " + tablero.getMazoTriunfo().toString()
+      );
       if (i > 1) {
         if (tablero.hayMazoGuia()) {
           System.out.println("El palo guía es " + auxiliar.toString());
@@ -438,8 +446,6 @@ public class Juego {
         }
         // System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
         if (correcto == true) {
-          System.out.println("La carta Jugada es : " + jugadores.elemInd(i).jugarCarta(ind).toString());
-          
           aux = jugadores.elemInd(i).jugarCarta(ind);
           jugadores.elemInd(i).getJugadas().add(aux);
         }
@@ -458,8 +464,6 @@ public class Juego {
             validarJugada(aux, jugadores.elemInd(i).getMano(), tablero) == true
           ) {
             cartasJugadas.agregaFinal(aux);
-           
-
             jugadores.elemInd(i).getMano().delete(aux);
             if (jugadores.elemInd(i).getMano().isEmpty()) {
               System.out.println(
@@ -481,7 +485,7 @@ public class Juego {
         }
       } while (correcto == false);
     }
-    //tablero.getMazoGuia().setPalo("nulo");
+    jugadores2 = getJugadores();
     return cartasJugadas;
   }
 
