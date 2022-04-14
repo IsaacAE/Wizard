@@ -19,17 +19,20 @@ public class Juego {
   Cola<Jugador> barajeadores = new Cola();
   int maxRondas = 0;
   Jugador ganadorAct;
+  boolean posibleEmpate = false;
+  Lista<Jugador> empates = new Lista();
+  Jugador ganador;
   Scanner escaner;
 
-  //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
-
-  /* public Juego(int jugadores) {
-    Lista <Integer> jugador;
-    for (int i = 0; i < jugadores; i++) {
-        jugador = new Lista();
-        puntosJugadores.add(jugador);
-    }
-  }*/
+  public boolean getPosibleEmpate(){
+    return this.posibleEmpate;
+  }
+  public Lista<Jugador> getEmpates(){
+    return this.empates;
+  }
+  public Jugador getGanador(){
+    return this.ganador;
+  }
   public void modMaxRondas() {
     int aux = jugadores.size();
     switch (aux) {
@@ -330,9 +333,7 @@ public class Juego {
   }
 
   public void ganadorJuego() {
-    Lista<Jugador> empates = new Lista();
     Iterator<Jugador> iteradorLista = jugadores.iterator();
-    boolean posibleEmpate = false;
     Jugador aux = iteradorLista.next();
     Jugador aux2;
     Jugador auxEmpate = new Jugador("defaut");
@@ -343,7 +344,6 @@ public class Juego {
       }
     }
     Jugador ganadorActl;
-    //empates.add(aux);
     iteradorLista = jugadores.iterator();
     for (int i = 0; i < jugadores.size(); i++) {
       ganadorActl = iteradorLista.next();
@@ -355,20 +355,9 @@ public class Juego {
     if (posibleEmpate) {
       System.out.println("Ganadores " + empates);
     } else {
-      System.out.println("El ganador actual es: " + aux.getNombre());
+      ganador = aux;
+      System.out.println("El ganador actual es: " + ganador.getNombre());
     }
-    /*if (posibleEmpate) {
-      if (auxEmpate.getPuntosTotal() == aux.getPuntosTotal()) {
-        System.out.println(
-          "Jugador " +
-          auxEmpate.getNombre() +
-          " esta empatado con " +
-          aux.getNombre()
-        );
-      }
-    } else {
-      System.out.println("El ganador actual es: " + aux.getNombre());
-    }*/
   }
 
   public void puntosRonda() {
@@ -558,22 +547,6 @@ public class Juego {
         return this.jugadores.elemInd(indDev);
       }
     }
-
-    /*
-for(int i=1; i<=cartasJugadas.size(); i++){
-for(int k=1; k<=cartasJugadas.size(); k++){
-  if(cartasJugadas.elemInd(i).getValor()!="J"){
-    a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
-  }
-  if(cartasJugadas.elemInd(k).getValor()!="J"){
-    b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
-  }
-   if(a <= b){
-     indDev=k;
-   }
- }
- return this.jugadores.elemInd(indDev);
-}*/
     return this.jugadores.elemInd(indDev);
   }
 }

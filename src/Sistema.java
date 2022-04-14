@@ -22,6 +22,7 @@ public class Sistema {
     System.out.println("Bienvenido a wizard");
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- \n");
     escaner = new Scanner(System.in);
+    int contador = 1;
     do {
       valido = true;
       int eleccion = 0;
@@ -35,7 +36,12 @@ public class Sistema {
         //escaner.next();
       }
       if (eleccion == 1) {
-        solicitarDatos();
+        if(contador <= 6){
+          solicitarDatos();
+          contador++;
+        }else{
+          System.out.println("Ya se registro el numero maximo");
+        }
         valido = false;
       } else if (eleccion == 2) {
         if (validarComienzo()) {
@@ -106,6 +112,7 @@ public class Sistema {
     } while (valido == false);
     juego.jugadores.add(new Jugador(nombre));
     System.out.println("Jugador agregado exitosamente");
+    System.out.println("Jugadores registrados: "+juego.jugadores.size());
   }
 
   /**
