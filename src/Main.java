@@ -72,7 +72,7 @@ return totalJugadores;
       Sistema sistema = new Sistema();
       Juego juego = new Juego();
       Tablero tablero = new Tablero();
-      sistema.iniciar();
+      sistema.iniciar(); 
       /*Juego juego = new Juego();
       Tablero tablero = new Tablero();
       juego.agregarJugadores(new Jugador("Mauricio"));

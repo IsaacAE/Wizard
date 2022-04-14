@@ -10,6 +10,8 @@ import java.util.Scanner;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
+import wizard.Archivo;
+
 
 public class Juego {
 
@@ -19,6 +21,7 @@ public class Juego {
   Cola<Jugador> barajeadores = new Cola();
   int maxRondas = 0;
   Jugador ganadorAct;
+  Archivo ob = new Archivo();
   Scanner escaner;
 
   //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
@@ -316,6 +319,8 @@ public class Juego {
       //ganadorTruco(ganadorT);
       ganadorTruco(buscarJugador(ganadorT.getNombre()));
       tablero.getMazoGuia().setPalo("nulo");
+      
+      
     }
     mostrarTrucosGanados();
     ganadorRonda();
@@ -328,7 +333,7 @@ public class Juego {
   public void ganadorTruco(Jugador ganador) {
     ganador.ganoTruco();
   }
-
+ 
   public void ganadorJuego() {
     Lista<Jugador> empates = new Lista();
     Iterator<Jugador> iteradorLista = jugadores.iterator();
@@ -395,11 +400,12 @@ public class Juego {
     Carta auxiliar = new Carta("nulo", "g");
     Lista<Carta> cartasJugadas = new Lista<Carta>();
     int i = 0, j = 0;
+   
+    for (i = 1; i <= jugadores.longi; i++) {
+    //  System.out.println(tablero.getMazoGuia().getPalo());
     System.out.println(
       "El palo triunfo es " + tablero.getMazoTriunfo().toString()
     );
-    for (i = 1; i <= jugadores.longi; i++) {
-      System.out.println(tablero.getMazoGuia().getPalo());
       if (i > 1) {
         if (tablero.hayMazoGuia()) {
           System.out.println("El palo guía es " + auxiliar.toString());
@@ -443,7 +449,10 @@ public class Juego {
         }
         // System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
         if (correcto == true) {
+          System.out.println("La carta Jugada es : " + jugadores.elemInd(i).jugarCarta(ind).toString());
+          
           aux = jugadores.elemInd(i).jugarCarta(ind);
+          jugadores.elemInd(i).getJugadas().add(aux);
         }
         if (
           tablero.getMazoGuia().getPalo() == "blanco" ||
@@ -460,6 +469,8 @@ public class Juego {
             validarJugada(aux, jugadores.elemInd(i).getMano(), tablero) == true
           ) {
             cartasJugadas.agregaFinal(aux);
+           
+
             jugadores.elemInd(i).getMano().delete(aux);
             if (jugadores.elemInd(i).getMano().isEmpty()) {
               System.out.println(
