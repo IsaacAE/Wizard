@@ -27,8 +27,8 @@ public class Sistema {
   boolean valido = false;
 
   /**
- * Metodo que inicia el juego de Wizard y termina al acabar las rondas o cuando el usuario decida
- */
+   * Metodo que inicia el juego de Wizard y termina al acabar las rondas o cuando el usuario decida
+   */
   public void iniciar() {
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
     System.out.println("Bienvenido a wizard");
@@ -72,6 +72,7 @@ public class Sistema {
             detMazoTriunfo();
             //System.out.println("Mostando baraja "+tablero.getBarajita());
             juego.jugarRonda(tablero);
+
             //Recorrer con un iterador
             /*for(int i=1; i<=juego.getJugadores().size(); i++){
               System.out.println(juego.getJugadores().elemInd(i+1).getJugadas().toString());
@@ -94,6 +95,8 @@ public class Sistema {
                 System.out.println("Sigamos entonces");
                 bobo = false;
               } else if (dec == 1) {
+                Archivo obj = new Archivo();
+                obj.Historial(juego, tablero);
                 break;
               } else {
                 System.out.println("Eleccion no valida");
@@ -111,9 +114,9 @@ public class Sistema {
   }
 
   /**
- * Metodo que solicita a los usuarios que apuesten segun la ronda
- * @param ronda Ronda del juego
- */
+   * Metodo que solicita a los usuarios que apuesten segun la ronda
+   * @param ronda Ronda del juego
+   */
   public void apostar(int ronda) {
     juego.apuestas(ronda);
   }
@@ -130,8 +133,8 @@ public class Sistema {
   }
 
   /**
- * Metodo que valida si se puede comenzar el juego o no
- */
+   * Metodo que valida si se puede comenzar el juego o no
+   */
   private boolean validarComienzo() {
     int jugadoresN = juego.getJugadores().size();
     if (jugadoresN >= 3 && jugadoresN <= 6) {
@@ -144,8 +147,8 @@ public class Sistema {
   }
 
   /**
- * Metodo que solicita los datos a los usuarios
- */
+   * Metodo que solicita los datos a los usuarios
+   */
   private void solicitarDatos() {
     escaner = new Scanner(System.in);
     valido = false;
@@ -229,7 +232,5 @@ public class Sistema {
     }
 
     return aux;
-   
   }
-
 }

@@ -66,9 +66,6 @@ public class Archivo {
         aux = iteradorLista.next();
         myWriter.write("\nJugador: " + aux.getNombre());
         myWriter.write(
-          "\nBarajeo las siguientes rondas : \n" + aux.getBarajeo()
-        );
-        myWriter.write(
           "jugo las siguientes cartas (respectivamente): " +
           aux.getJugadas() +
           "\n"
