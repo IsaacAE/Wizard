@@ -5,15 +5,18 @@
 package wizard.src;
 
 import java.util.Random;
-import java.util.Random;
 import wizard.src.Estructuras.*;
 
 public class Baraja {
 
+  //Atributos de la clase
   String palo;
-  // int tam=13;
   Carta[] mazoCartas;
 
+  /**
+ * Metodo constructor que crea una baraja segun el palo dado
+ * @param palo Palo de la carta
+ */
   public Baraja(String palo) {
     this.palo = palo;
 
@@ -42,11 +45,19 @@ public class Baraja {
 
   }
 
+  /**
+ * Metodo constructor que crea una baraja segun un arreglo de cartas que se la pase como parametro
+ * @param mazoCartas Arreglo de cartas
+ */
   public Baraja(Carta[] mazoCartas) {
     this.mazoCartas = mazoCartas;
     this.palo = "nulo";
   }
 
+  /**
+ * Metodo constructor que crea una baraja con todas las cartas necesarias para el juego
+ * @param palo Palo de la carta
+ */
   public Baraja() {
     this.palo = "neutro";
     int j = 0;
