@@ -4,10 +4,16 @@
  */
 package wizard.src;
 
+import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
+import wizard.Archivo;
 //import javax.lang.model.util.ElementScanner14;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+//import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import wizard.src.Estructuras.*;
 
 public class Sistema {
@@ -15,13 +21,20 @@ public class Sistema {
   Scanner escaner = new Scanner(System.in);
   Juego juego = new Juego();
   Tablero tablero = new Tablero();
+  Archivo ob = new Archivo();
+
+  // ob.Historial(juego, tablero);
   boolean valido = false;
 
+  /**
+   * Metodo que inicia el juego de Wizard y termina al acabar las rondas o cuando el usuario decida
+   */
   public void iniciar() {
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
     System.out.println("Bienvenido a wizard");
     System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- \n");
     escaner = new Scanner(System.in);
+    int contador = 1;
     do {
       valido = true;
       int eleccion = 0;
@@ -35,21 +48,61 @@ public class Sistema {
         //escaner.next();
       }
       if (eleccion == 1) {
-        solicitarDatos();
+        if (contador <= 6) {
+          solicitarDatos();
+          contador++;
+        } else {
+          System.out.println("Ya se registro el numero maximo");
+        }
         valido = false;
       } else if (eleccion == 2) {
         if (validarComienzo()) {
           System.out.println("Comenzando en breves");
           iniciarJuego();
           juego.modMaxRondas();
+          int dec = 0;
           while (tablero.getRonda() <= juego.getMaxRondas()) {
+            if (dec == 1) {
+              break;
+            }
             // tablero.getMazoGuia().setPalo("verde");
             //tablero.getBarajita().revolver();
             tablero.repartir(juego.getJugadores());
             System.out.println("RONDA: " + tablero.getRonda());
             detMazoTriunfo();
-
+            //System.out.println("Mostando baraja "+tablero.getBarajita());
             juego.jugarRonda(tablero);
+
+            //Recorrer con un iterador
+            /*for(int i=1; i<=juego.getJugadores().size(); i++){
+              System.out.println(juego.getJugadores().elemInd(i+1).getJugadas().toString());
+            }*/
+
+            System.out.println("\n¿Desea terminar el juego?\n1.SI\n2.NO");
+            boolean bobo = false;
+
+            do {
+              bobo = false;
+              try {
+                dec = escaner.nextInt();
+              } catch (InputMismatchException ed) {
+                escaner.nextLine();
+                System.out.println(
+                  "Debe elegir entre la opcion 1 o 2 colocando el numero correspondiente"
+                );
+              }
+              if (dec == 2) {
+                System.out.println("Sigamos entonces");
+                bobo = false;
+              } else if (dec == 1) {
+                Archivo obj = new Archivo();
+                obj.Historial(juego, tablero);
+                break;
+              } else {
+                System.out.println("Eleccion no valida");
+                bobo = true;
+              }
+            } while (bobo == true);
           }
           tablero.pasaRonda();
         }
@@ -60,6 +113,10 @@ public class Sistema {
     } while (valido == false);
   }
 
+  /**
+   * Metodo que solicita a los usuarios que apuesten segun la ronda
+   * @param ronda Ronda del juego
+   */
   public void apostar(int ronda) {
     juego.apuestas(ronda);
   }
@@ -75,6 +132,9 @@ public class Sistema {
     //break;
   }
 
+  /**
+   * Metodo que valida si se puede comenzar el juego o no
+   */
   private boolean validarComienzo() {
     int jugadoresN = juego.getJugadores().size();
     if (jugadoresN >= 3 && jugadoresN <= 6) {
@@ -86,6 +146,9 @@ public class Sistema {
     }
   }
 
+  /**
+   * Metodo que solicita los datos a los usuarios
+   */
   private void solicitarDatos() {
     escaner = new Scanner(System.in);
     valido = false;
@@ -106,6 +169,7 @@ public class Sistema {
     } while (valido == false);
     juego.jugadores.add(new Jugador(nombre));
     System.out.println("Jugador agregado exitosamente");
+    System.out.println("Jugadores registrados: " + juego.jugadores.size());
   }
 
   /**
@@ -168,81 +232,5 @@ public class Sistema {
     }
 
     return aux;
-    //Carta ojo = new Carta ("blanco", "J");
-    //tablero.setMazoTriunfo(ojo);
-
-    /*tablero.setMazoTriunfo(tablero.getBarajita().cartaIndex(0));
-    if (
-      tablero.getMazoTriunfo().getPalo() == "blanco" ||
-      tablero.getMazoTriunfo().getPalo() == "morado"
-    ) {
-      do {
-        valido = true;
-        int eleccionPalo = 0;
-        Carta paloT = new Carta("rojo", "*");
-        System.out.println(
-          "Elige el palo del mazo guia, puedes elegir entre: \n1. rojo \n2. azul \n3. verde \n4. amarillo"
-        );
-        try {
-          eleccionPalo = escaner.nextInt();
-        } catch (InputMismatchException et) {
-          valido = false;
-          // System.out.println("ERROR 404");
-          escaner.next();
-          //escaner.next();
-        }
-        switch (eleccionPalo) {
-          case 1:
->>>>>>> e34f795b70451f8f2c7e511a3125c8f3481bc4a2
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 2:
-            paloT.setPalo("azul");
-            paloT.setValor("||");
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 3:
-            paloT.setPalo("verde");
-            paloT.setValor("<>");
-            tablero.setMazoTriunfo(paloT);
-            break;
-          case 4:
-            paloT.setPalo("amarillo");
-            paloT.setValor("#");
-            tablero.setMazoTriunfo(paloT);
-<<<<<<< HEAD
-            break; 
-
-            default:
-
-            valido=false;
-            break;
-
-          }
-        }while(valido==false);
-
-        //System.out.println("Funciona");
-      }
-      tablero.barajita.getMazoCartas()[0]=null;
-      return tablero.getMazoTriunfo();
-=======
-            break;
-          default:
-            valido = false;
-            break;
-        }
-      } while (valido == false);
-      //System.out.println("Funciona");
-    }
-    tablero.barajita.getMazoCartas()[0] = null;
-    return tablero.getMazoTriunfo();*/
-
   }
-  //Baraja barajaP = tablero.getBarajita();
-  //Jugador jugadorP = juego.jugadores.peek();
-  //Baraja barajaP = jugadorP.barajear(tablero.getBarajita());
-  //barajaP.cartaInd(0);
-  //tablero.setMazoTriunfo(barajaP.cartaInd(0));
-  //tablero.setBarajita(juego.jugadores.peek.barajear(tablero.getBarajita()));
-
 }

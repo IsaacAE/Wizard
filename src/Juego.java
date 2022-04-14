@@ -7,28 +7,41 @@ package wizard.src;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
+import wizard.Archivo;
 import wizard.src.Estructuras.*;
 import wizard.src.Jugador;
 import wizard.src.Tablero;
 
 public class Juego {
 
-  //Lista<Lista<Integer>> puntosJugadores = new Lista();
+  //Atributos de la clase
   Lista<Jugador> jugadores = new Lista();
   Baraja barajita;
   Cola<Jugador> barajeadores = new Cola();
   int maxRondas = 0;
+  Jugador ganadorAct;
+  boolean posibleEmpate = false;
+  Lista<Jugador> empates = new Lista();
+  Jugador ganador;
+  Archivo ob = new Archivo();
   Scanner escaner;
+  Lista<Jugador> jugadores2 = new Lista();
 
-  //private IteradorLista<Jugador> iteradorListaDosDirecciones = jugadores.iteradorLista();
+  public boolean getPosibleEmpate() {
+    return this.posibleEmpate;
+  }
 
-  /* public Juego(int jugadores) {
-    Lista <Integer> jugador;
-    for (int i = 0; i < jugadores; i++) {
-        jugador = new Lista();
-        puntosJugadores.add(jugador);
-    }
-  }*/
+  public Lista<Jugador> getEmpates() {
+    return this.empates;
+  }
+
+  public Jugador getGanador() {
+    return this.ganador;
+  }
+
+  /**
+   * Metodo constructor que determina el maximo de rondas segun el numero de jugadores
+   */
   public void modMaxRondas() {
     int aux = jugadores.size();
     switch (aux) {
@@ -74,6 +87,9 @@ public class Juego {
     return this.maxRondas;
   }
 
+  /**
+   * Metodo constructor que imprime las predicciones realizadas por los jugadores
+   */
   public void mostrarPredicciones() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -84,6 +100,9 @@ public class Juego {
     }
   }
 
+  /**
+   * Metodo constructor que imrpime el numero de trucos ganados por cada jugador en la ronda
+   */
   public void mostrarTrucosGanados() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -95,6 +114,9 @@ public class Juego {
     }
   }
 
+  /**
+   * Metodo constructor que vuelve 0 el atributo contadorTrucos de todos los jugadores
+   */
   public void vaciarTrucosGanados() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     Jugador aux;
@@ -104,8 +126,10 @@ public class Juego {
     }
   }
 
-  //Falta determina quien va a ganar una ronda
-
+  /**
+   * Metodo que solicita cuantas apuestas desea hacer el jugador y valida los datos ingresados
+   * @param ronda Ronda en la que va el juego
+   */
   public void apuestas(int ronda) {
     escaner = new Scanner(System.in);
     Iterator<Jugador> iteradorLista = jugadores.iterator();
@@ -160,7 +184,6 @@ public class Juego {
       }
     }
     return null;
-    //return jugadores.indexOf(nombre);
   }
 
   /**
@@ -295,7 +318,7 @@ public class Juego {
     //Carta mago = new Carta("morado", "W");
     int i = 0, j = 0;
     boolean continua = true;
-    int numJug = jugadores.longi - 1;
+    int numJug = jugadores.size() - 1;
     modMaxRondas();
     int rondasJug = tablero.getRonda();
     //while(rondasJug<=maxRondas){
@@ -316,24 +339,102 @@ public class Juego {
       ganadorTruco(buscarJugador(ganadorT.getNombre()));
       tablero.getMazoGuia().setPalo("nulo");
     }
+    Iterator<Jugador> iteratorLista = jugadores2.iterator();
+    while (iteratorLista.hasNext()) {
+      System.out.println(
+        "Lista jugadas clase juego -->" + iteratorLista.next().getJugadas()
+      );
+    }
     mostrarTrucosGanados();
     ganadorRonda();
     puntosRonda();
+    ganadorJuego();
+    //terminarJuego(tablero);
     vaciarTrucosGanados();
     tablero.pasaRonda();
   }
 
+  public int terminarJuego(Tablero tablero) {
+    System.out.println("\n¿Desea terminar el juego?\n1.SI\n2.NO");
+    boolean bobo = false;
+    int dec = 0;
+    do {
+      bobo = false;
+      try {
+        dec = escaner.nextInt();
+      } catch (InputMismatchException ed) {
+        escaner.nextLine();
+        System.out.println(
+          "Debe elegir entre la opcion 1 o 2 colocando el numero correspondiente"
+        );
+      }
+      if (dec == 2) {
+        System.out.println("Sigamos entonces");
+        bobo = false;
+      } else if (dec == 1) {
+        Archivo obj = new Archivo();
+        obj.Historial(this, tablero);
+        break;
+      } else {
+        System.out.println("Eleccion no valida");
+        bobo = true;
+      }
+    } while (bobo == true);
+    return dec;
+  }
+
+  /**
+   * Metodo que aumenta el atributo contadorTruco en 1 del ganador
+   * @param palo Palo de la carta
+   */
   public void ganadorTruco(Jugador ganador) {
     ganador.ganoTruco();
   }
 
-  public void puntosRonda(){
+  /**
+   * Metodo que determina el gandor o ganadores de la partida
+   */
+  public void ganadorJuego() {
+    Iterator<Jugador> iteradorLista = jugadores.iterator();
+    Jugador aux = iteradorLista.next();
+    Jugador aux2;
+    Jugador auxEmpate = new Jugador("defaut");
+    for (int i = 0; i < jugadores.size() - 1; i++) {
+      aux2 = iteradorLista.next();
+      if (!(aux.getPuntosTotal() > aux2.getPuntosTotal())) {
+        aux = aux2;
+      }
+    }
+    Jugador ganadorActl;
+    iteradorLista = jugadores.iterator();
+    for (int i = 0; i < jugadores.size(); i++) {
+      ganadorActl = iteradorLista.next();
+      if (ganadorActl.getPuntosTotal() == aux.getPuntosTotal()) {
+        empates.add(ganadorActl);
+        posibleEmpate = true;
+      }
+    }
+    if (posibleEmpate) {
+      System.out.println("Ganadores " + empates);
+    } else {
+      ganador = aux;
+      System.out.println("El ganador actual es: " + ganador.getNombre());
+    }
+  }
+
+  /**
+   * Metodo que determina cuantos puntos tendra el jugador
+   */
+  public void puntosRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     while (iteradorLista.hasNext()) {
       iteradorLista.next().puntosJugador();
     }
   }
 
+  /**
+   * Metodo que aumenta el atributo trucosRonda segun los trucos ganados
+   */
   public void ganadorRonda() {
     Iterator<Jugador> iteradorLista = jugadores.iterator();
     while (iteradorLista.hasNext()) {
@@ -342,7 +443,7 @@ public class Juego {
   }
 
   /**
-   * Metodo pque sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
+   * Metodo que sirve para jugar turno, en cada turno todos los jugadores juegan una carta y estas son guardadas en una lista
    * @param tablero Representa el tablero en donde se juega la partida
    * @return Lista<Carta> Representa las cartas jugadas
    */
@@ -351,11 +452,11 @@ public class Juego {
     Carta auxiliar = new Carta("nulo", "g");
     Lista<Carta> cartasJugadas = new Lista<Carta>();
     int i = 0, j = 0;
-    System.out.println(
-      "El palo triunfo es " + tablero.getMazoTriunfo().toString()
-    );
     for (i = 1; i <= jugadores.longi; i++) {
-      System.out.println(tablero.getMazoGuia().getPalo());
+      //  System.out.println(tablero.getMazoGuia().getPalo());
+      System.out.println(
+        "El palo triunfo es " + tablero.getMazoTriunfo().toString()
+      );
       if (i > 1) {
         if (tablero.hayMazoGuia()) {
           System.out.println("El palo guía es " + auxiliar.toString());
@@ -400,6 +501,7 @@ public class Juego {
         // System.out.println(jugadores.elemInd(i).mostrarMano() + "Mano del jugador "  + jugadores.elemInd(i).toString());
         if (correcto == true) {
           aux = jugadores.elemInd(i).jugarCarta(ind);
+          jugadores.elemInd(i).getJugadas().add(aux);
         }
         if (
           tablero.getMazoGuia().getPalo() == "blanco" ||
@@ -437,10 +539,15 @@ public class Juego {
         }
       } while (correcto == false);
     }
-    //tablero.getMazoGuia().setPalo("nulo");
+    jugadores2 = getJugadores();
     return cartasJugadas;
   }
 
+  /**
+   * Metodo para determinar quien es el ganador del truco
+   * @param cartasJugadas Lista de cartas jugadas en la ronda
+   * @param tablero Tablero en el que se juega la partida
+   */
   public Jugador ganador(Lista<Carta> cartasJugadas, Tablero tablero) {
     Carta mago = new Carta("morado", "W");
     int jokers = 0;
@@ -482,7 +589,14 @@ public class Juego {
               tablero.getMazoTriunfo().getPalo()
             )
           ) {
-            indDev = k;
+            if (indDev == 0) {
+              indDev = k;
+            } else if (
+              Integer.valueOf(cartasJugadas.elemInd(indDev).getValor()) <
+              Integer.valueOf(cartasJugadas.elemInd(k).getValor())
+            ) {
+              indDev = k;
+            }
           }
         }
         return this.jugadores.elemInd(indDev);
@@ -508,28 +622,20 @@ public class Juego {
               tablero.getMazoGuia().getPalo()
             )
           ) {
-            indDev = k;
+            if (indDev == 0) {
+              indDev = k;
+            } else if (
+              Integer.valueOf(cartasJugadas.elemInd(indDev).getValor()) <
+              Integer.valueOf(cartasJugadas.elemInd(k).getValor())
+            ) {
+              indDev = k;
+            }
           }
         }
         return this.jugadores.elemInd(indDev);
       }
     }
 
-    /*
-for(int i=1; i<=cartasJugadas.size(); i++){
-for(int k=1; k<=cartasJugadas.size(); k++){
-  if(cartasJugadas.elemInd(i).getValor()!="J"){
-    a =Integer.valueOf(cartasJugadas.elemInd(i).getValor());
-  }
-  if(cartasJugadas.elemInd(k).getValor()!="J"){
-    b =Integer.valueOf(cartasJugadas.elemInd(k).getValor());
-  }
-   if(a <= b){
-     indDev=k;
-   }
- }
- return this.jugadores.elemInd(indDev);
-}*/
     return this.jugadores.elemInd(indDev);
   }
 }

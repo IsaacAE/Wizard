@@ -15,7 +15,7 @@ public class Jugador {
   String nombre;
   Lista<Integer> prediccion = new Lista();
   Lista<Integer> barajeo = new Lista();
-  Lista<Lista<Carta>> jugadas = new Lista();
+  Lista<Carta> jugadas = new Lista();
   Lista<Integer> RondaPuntos = new Lista();
   Lista<Integer> puntos = new Lista();
   Lista<Integer> ronda = new Lista();
@@ -36,6 +36,9 @@ public class Jugador {
     this.nombre = nombre;
   }
 
+   /**
+ * Metodo constructor que aumenta en uno el atributo contadorTruco
+ */
   public void ganoTruco() {
     contadorTruco += 1;
   }
@@ -48,7 +51,7 @@ public class Jugador {
     this.contadorTruco = contadorTruco;
   }
 
-  public Lista<Lista <Carta>> getJugadas(){
+  public Lista <Carta> getJugadas(){
     return this.jugadas;
   }
 
@@ -81,9 +84,9 @@ public class Jugador {
         "Jugador " + this.getNombre() + " puntos: " + iteradorLista.next()
       );
     }*/
-    System.out.println("Tiene un total de " + puntosTotal);
+    System.out.println(this.getNombre()+" tiene un total de " + puntosTotal);
   }
-
+ 
   /**
    * Se agrega un numero a la lista de predicciones
    * @param ganare
@@ -156,9 +159,14 @@ public class Jugador {
    */
   public Carta jugarCarta(int indice) {
     Carta aux = mano.elemInd(indice);
+   // jugadas.add(aux);
     return aux;
   }
 
+   /**
+ * Metodo que representa el objeto en cadena
+ * @return String
+ */
   @Override
   public String toString() {
     //System.out.println(this.mostrarMano());
