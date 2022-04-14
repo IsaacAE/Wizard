@@ -15,7 +15,7 @@ public class Jugador {
   String nombre;
   Lista<Integer> prediccion = new Lista();
   Lista<Integer> barajeo = new Lista();
-  Lista<Lista<Carta>> jugadas = new Lista();
+  Lista<Carta> jugadas = new Lista();
   Lista<Integer> RondaPuntos = new Lista();
   Lista<Integer> puntos = new Lista();
   Lista<Integer> ronda = new Lista();
@@ -48,7 +48,7 @@ public class Jugador {
     this.contadorTruco = contadorTruco;
   }
 
-  public Lista<Lista <Carta>> getJugadas(){
+  public Lista <Carta> getJugadas(){
     return this.jugadas;
   }
 
@@ -83,7 +83,7 @@ public class Jugador {
     }*/
     System.out.println(this.getNombre()+" tiene un total de " + puntosTotal);
   }
-
+ 
   /**
    * Se agrega un numero a la lista de predicciones
    * @param ganare
@@ -156,6 +156,7 @@ public class Jugador {
    */
   public Carta jugarCarta(int indice) {
     Carta aux = mano.elemInd(indice);
+   // jugadas.add(aux);
     return aux;
   }
 
