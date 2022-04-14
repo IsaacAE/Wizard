@@ -102,6 +102,10 @@ public class Baraja {
     }
   }
 
+   /**
+ * Metodo para representar en cadena la baraja
+ * @return String
+ */
   public String toString() {
     String mazo = "";
     for (int j = 0; j < this.mazoCartas.length; j++) {
@@ -112,12 +116,20 @@ public class Baraja {
     return mazo;
   }
 
+   /**
+ * Metodo que cambia de lugar dos cartas en el mazo de cartas de la baraja
+ * @param indice1 Indice en el arreglo de la primer carta
+ * @param indice2 Indice en el arreglo de la segunda carta
+ */
   public void cambiarCarta(int indice1, int indice2) {
     Carta aux = mazoCartas[indice1];
     mazoCartas[indice1] = mazoCartas[indice2];
     mazoCartas[indice2] = aux;
   }
 
+   /**
+ * Metodo constructor que desordena el arreglo mazoCartas de la baraja
+ */
   public Carta[] revolver() {
     int azar = 0;
     int j = 0;
@@ -132,6 +144,10 @@ public class Baraja {
     return this.mazoCartas;
   }
 
+   /**
+ * Metodo que saca una carta de la baraja
+ * @param palo Palo de la carta
+ */
   public Carta sacarCarta() {
     Carta aux = new Carta("neutro", "0");
     for (int i = 0; i < mazoCartas.length; i++) {
@@ -161,6 +177,10 @@ public class Baraja {
     this.palo = palo;
   }
 
+   /**
+ * Metodo que devuelve una carta segun el indice
+ * @param index Indice de la carta que se quiere sacar
+ */
   public Carta cartaIndex(int index){
     return this.mazoCartas[index];
   }

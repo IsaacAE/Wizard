@@ -36,6 +36,9 @@ public class Jugador {
     this.nombre = nombre;
   }
 
+   /**
+ * Metodo constructor que aumenta en uno el atributo contadorTruco
+ */
   public void ganoTruco() {
     contadorTruco += 1;
   }
@@ -160,6 +163,10 @@ public class Jugador {
     return aux;
   }
 
+   /**
+ * Metodo que representa el objeto en cadena
+ * @return String
+ */
   @Override
   public String toString() {
     //System.out.println(this.mostrarMano());
